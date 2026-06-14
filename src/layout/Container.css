@@ -1,0 +1,58 @@
+/**
+# Container
+
+A container component. Provides a responsive container with a max-width and centered content.
+
+```html
+<container-i>
+  <h1>Page Title</h1>
+  <p>Content within a centered container</p>
+</container-i>
+```
+
+```html-wide
+<container-i data-as="card-i" variant="narrow" gap="m" pad="xl">
+  <h3>Narrow container (as a card)</h3>
+  <input type="text" placeholder="Your Name">
+  <button type="submit">Submit</button>
+</container-i>
+```
+**/
+container-i,
+[data-as="container-i"] {
+  --vpad: 0;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--container-width-max, 1100px);
+  min-width: 300px;
+  padding-bottom: var(--vpad);
+  padding-top: var(--vpad);
+  width: 100%;
+
+  &[direction="row"],
+  &[direction="responsive"] {
+    flex-direction: row;
+  }
+
+  &[direction="row-reverse"] {
+    flex-direction: row-reverse;
+  }
+
+  &[variant="narrow"] {
+    max-width: var(--container-width-narrow, 400px);
+  }
+}
+
+@media (max-width: 767px) {
+  container-i,
+  [data-as="container-i"] {
+    padding-left: var(--spacing-mobile-side-padding, 1rem);
+    padding-right: var(--spacing-mobile-side-padding, 1rem);
+
+    &[direction="responsive"] {
+      flex-direction: column;
+    }
+  }
+}

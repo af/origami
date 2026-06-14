@@ -1,0 +1,67 @@
+/**
+# Eyebrow
+
+Add supplemental information above your headings. Designed to help you use the correct `hgroup` & `p` tag semantics, rather than introducing a new element
+
+```html
+<hgroup>
+  <p class="eyebrow-i">Latest News</p>
+  <h1>Exciting CSS Library Released</h1>
+</hgroup>
+```
+
+```html
+<hgroup>
+  <p class="eyebrow-i" data-tone="neutral">
+    Breaking
+  </p>
+  <h2>Some Generic Sub-heading</h2>
+</hgroup>
+```
+
+```html
+<hgroup>
+  <p class="eyebrow-i" data-tone="danger">Oh shit</p>
+  <h3>I'm in Danger</h3>
+</hgroup>
+```
+
+## References
+* https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hgroup
+
+**/
+
+hgroup > p.eyebrow-i {
+  font-family: var(--font-family-micro, --font-family-text);
+  font-weight: 600;
+  font-size: var(--font-size-xs);
+  color: var(--color-fg-info, --color-fg-secondary);
+  letter-spacing: 0.05em;
+  margin: 0;
+  text-transform: uppercase;
+
+  &[data-tone="neutral"] {
+    color: var(--color-fg-secondary);
+  }
+
+  &[data-tone="warn"] {
+    color: var(--color-fg-warn);
+  }
+
+  &[data-tone="danger"] {
+    color: var(--color-fg-danger);
+  }
+
+  &[data-tone="success"] {
+    color: var(--color-fg-success);
+  }
+
+  & + h1,
+  & + h2,
+  & + h3,
+  & + h4,
+  & + h5,
+  & + h6 {
+    margin-top: var(--spacing-xs);
+  }
+}

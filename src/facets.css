@@ -1,0 +1,132 @@
+/* Common attributes and styles for various components */
+@layer ori-base {
+  /* Common popover styles */
+  dropdown-i:popover-open,
+  tooltip-i:popover-open,
+  toggletip-i:popover-open {
+    display: block;
+    position: fixed;
+    top: anchor(bottom);
+    bottom: auto;
+
+    color: var(--color-fg-primary);
+    border: none;
+    border-radius: var(--border-radius-m);
+    background-color: var(--color-bg-floating, var(--color-bg-primary));
+    font-size: var(--font-size-s);
+
+    padding: var(--spacing-s) var(--spacing-m);
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+
+    /* for css generated content arrows */
+    overflow: visible;
+
+    transition:
+      opacity 0.15s,
+      transform 0.15s;
+
+    @starting-style {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+}
+
+@layer ori-override {
+  vstack-i,
+  hstack-i,
+  [data-as="hstack-i"],
+  [data-as="vstack-i"],
+  container-i,
+  [data-as="container-i"],
+  card-i,
+  [data-as="card-i"],
+  alert-i {
+    &[gap="xs"] {
+      gap: var(--spacing-xs);
+    }
+
+    &[gap="s"] {
+      gap: var(--spacing-s);
+    }
+
+    &[gap="m"] {
+      gap: var(--spacing-m);
+    }
+
+    &[gap="l"] {
+      gap: var(--spacing-l);
+    }
+
+    /* All around padding */
+    &[pad="none"] {
+      padding: 0;
+    }
+
+    &[pad="xs"] {
+      padding: var(--spacing-xs);
+    }
+
+    &[pad="s"] {
+      padding: var(--spacing-s);
+    }
+
+    &[pad="m"] {
+      padding: var(--spacing-m);
+    }
+
+    &[pad="l"] {
+      padding: var(--spacing-l);
+    }
+
+    &[pad="xl"] {
+      padding: var(--spacing-xl);
+    }
+
+    /* Vertical padding */
+    &[vpad="none"] {
+      padding-block: 0;
+    }
+
+    &[vpad="xs"] {
+      padding-block: var(--spacing-xs);
+    }
+
+    &[vpad="s"] {
+      padding-block: var(--spacing-s);
+    }
+
+    &[vpad="m"] {
+      padding-block: var(--spacing-m);
+    }
+
+    &[vpad="l"] {
+      padding-block: var(--spacing-l);
+    }
+
+    &[vpad="xl"] {
+      padding-block: var(--spacing-xl);
+    }
+  }
+
+  alert-i,
+  badge-i,
+  card-i,
+  skeleton-i {
+    &[radius="none"] {
+      border-radius: 0;
+    }
+
+    &[radius="m"] {
+      border-radius: var(--border-radius-m);
+    }
+
+    &[radius="l"] {
+      border-radius: var(--border-radius-l);
+    }
+
+    &[radius="full"] {
+      border-radius: var(--border-radius-full);
+    }
+  }
+}

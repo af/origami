@@ -1,0 +1,90 @@
+/**
+# Alert
+
+General purprose alert banner, supporting several `tone` variants.
+
+Acts as a block container; use an hstack child if you need horizontally laid out content.
+
+## Attributes
+
+* `role` (required) - "alert"
+* `tone` - "success" | "warn" | "danger" | "info" | "neutral"
+* `pad` - "xs" | "s" | "m" | "l" | "xl"
+* `vpad` - "xs" | "s" | "m" | "l" | "xl"
+
+```html
+<alert-i role="alert">
+  <h2>Did you know?</h2>
+  This is a default/info alert
+</alert-i>
+```
+```html
+<alert-i role="alert" tone="success">
+  <h2>Success</h2>
+  This is a success alert
+</alert-i>
+```
+```html
+<alert-i role="alert" tone="warn">
+  <h2>Warning</h2>
+  This is a warning alert
+</alert-i>
+```
+```html
+<alert-i role="alert" tone="danger">
+  <h2>Danger</h2>
+  This is a danger alert
+</alert-i>
+```
+```html
+<alert-i role="alert" tone="neutral">
+  <h2>Meh</h2>
+  This is neutral
+</alert-i>
+```
+**/
+alert-i {
+  --color: var(--color-fg-info);
+  --bg: var(--color-bg-info);
+  --padding: var(--spacing-m);
+  --gap: var(--spacing-xs);
+
+  background-color: var(--bg);
+  border: 0.5px solid currentColor;
+  color: var(--color);
+  display: block;
+  font-size: var(--font-size-s);
+  padding: var(--padding);
+  border-radius: var(--border-radius-m);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: inherit;
+    font-size: 1em;
+    margin: 0 0 var(--spacing-xs);
+  }
+
+  &[tone="neutral"] {
+    --color: var(--color-fg-secondary);
+    --bg: transparent;
+  }
+
+  &[tone="success"] {
+    --color: var(--color-fg-success);
+    --bg: var(--color-bg-success);
+  }
+
+  &[tone="warn"] {
+    --color: var(--color-fg-warn);
+    --bg: var(--color-bg-warn);
+  }
+
+  &[tone="danger"] {
+    --color: var(--color-fg-danger);
+    --bg: var(--color-bg-danger);
+  }
+}

@@ -1,0 +1,74 @@
+/**
+# Card
+
+```html
+<card-i>
+  <h2>Card Title</h2>
+  <p>Card content goes here. It could be anything!</p>
+</card-i>
+```
+
+```html
+<card-i contenteditable>
+  <img data-as="card-cover-i" src="https://picsum.photos/id/1003/400/200" alt="Cover Image">
+  <hstack-i>
+    <h2>Card Component</h2>
+    <badge-i>New</badge-i>
+  </hstack-i>
+  <p>This is an example card with title and content. Edit me!</p>
+</card-i>
+```
+
+Sometimes you might want the whole card to function as a link. To do that, use `<a data-as="card-i">`:
+
+```html
+<a href="#fake" data-as="card-i">
+  <hstack-i>
+    <h2>Linked Card</h2>
+    <badge-i type="neutral">Neat</badge-i>
+  </hstack-i>
+  <p>
+    An example using <code>data-as="card-i"</code>instead of a custom element
+  </p>
+</a>
+```
+**/
+
+card-i,
+[data-as="card-i"] {
+  --radius: var(--border-radius-m);
+  --pad: var(--spacing-l);
+  --gap: var(--spacing-s);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-m);
+  box-shadow: var(--shadow-m);
+  display: flex;
+  flex-direction: column;
+  /* overridable with the gap attribute */
+  gap: var(--gap);
+  /* overridable with pad and vpad attributes */
+  padding: var(--spacing-l);
+
+  /* for <a data-as="card-i"> */
+  text-decoration: none;
+  /* prevent <a data-as="card-i"> from using the default link color */
+  color: inherit;
+
+  & > *:first-child {
+    margin-top: 0;
+  }
+
+  & > *:last-child {
+    margin-bottom: 0;
+  }
+
+  card-cover-i:first-child,
+  [data-as="card-cover-i"]:first-child {
+    max-width: calc(100% + 2 * var(--pad));
+    margin: calc(var(--pad) * -1);
+    margin-bottom: calc(var(--pad) - var(--gap));
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+  }
+}

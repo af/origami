@@ -1,0 +1,69 @@
+/**
+# Switch
+
+A toggle that can be used to turn something on or off. This wraps a checkbox which stores the
+state of the toggle.
+
+```html
+<label data-as="hstack-i">
+  <switch-i>
+   <input type="checkbox" name="someField" id="test" />
+  </switch-i>
+  My cool switch
+</label>
+```
+
+```html
+<label data-as="hstack-i">
+  <switch-i>
+   <input disabled type="checkbox" name="someField" id="test" />
+  </switch-i>
+  A disabled switch
+</label>
+```
+**/
+
+switch-i {
+  --pad: var(--spacing-xxs);
+  --h: 1rem;
+  --w: calc(var(--h) * 2.5);
+  --border: none;
+  --radius: var(--border-radius-full);
+
+  /* prevents extra margin below switch */
+  display: flex;
+
+  /* todo: clean up spacing values */
+  input[type="checkbox"] {
+    appearance: none;
+    background: var(--color-fg-disabled);
+    display: inline-block;
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: var(--pad);
+    width: var(--w);
+
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+
+    &::before {
+      content: "";
+      display: block;
+      width: var(--h);
+      height: var(--h);
+      border-radius: var(--border-radius-full);
+      background: var(--color-bg-primary, #fff);
+      transition: all 0.2s ease-out;
+    }
+
+    &:checked {
+      background: var(--color-fg-success);
+
+      &::before {
+        /* move the pseudo element so it's --pad away from the right edge */
+        transform: translateX(calc(var(--w) - var(--h) - 2 * var(--pad)));
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+/**
+# ButtonGroup
+
+```html
+<buttongroup-i>
+  <button>group 1</button>
+  <button>group 2</button>
+</buttongroup-i>
+```
+
+```html
+<buttongroup-i>
+  <button data-variant="outline">group 1</button>
+  <button data-variant="outline">group 2</button>
+  <button data-variant="outline">group 3</button>
+</buttongroup-i>
+```
+
+buttongroup can also be used to wrap radio buttons:
+
+```html
+<buttongroup-i>
+  <label>
+    Option 1 <input type="radio" name="radio-group" checked>
+  </label>
+  <label>
+    Option 2 <input type="radio" name="radio-group">
+  </label>
+  <label>
+    Option 3 <input type="radio" name="radio-group">
+  </label>
+</buttongroup-i>
+```
+**/
+buttongroup-i {
+  display: flex;
+  gap: 1px;
+
+  button {
+    /* only use button radius values defined below for first/last children */
+    border-radius: 0;
+  }
+
+  > *:first-child {
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+  }
+
+  > *:last-child {
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+  }
+
+  button[data-variant="outline"]:not(:first-child),
+  label:not(:first-child) {
+    margin-left: calc(-1px - var(--borderWidth, 1px));
+  }
+
+  /* <buttongroup-i> can also be used to wrap <label>text <input type="radio"></label> items */
+  label {
+    --radius: var(--border-radius-m);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    padding: var(--spacing-xs) var(--spacing-m);
+
+    &:has(input[type="radio"]:checked) {
+      color: var(--color-fg-cta);
+      background-color: var(--color-bg-cta);
+    }
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+}

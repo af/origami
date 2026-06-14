@@ -1,0 +1,88 @@
+/* Base application of custom properties to built-in elements */
+
+@layer ori-base {
+  html {
+    background-color: var(--color-bg-ground);
+    color: var(--color-fg-primary);
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-m);
+    min-height: 100dvh;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  p {
+    line-height: 1.6;
+    max-width: 50em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.2;
+    margin: 0;
+
+    &:not(:first-child) {
+      margin-top: 1em;
+    }
+  }
+
+  a {
+    color: var(--color-fg-link);
+  }
+
+  a:hover {
+    color: var(--color-fg-link-hover);
+  }
+
+  p + p {
+    margin-top: 1em;
+  }
+
+  input,
+  textarea,
+  select {
+    accent-color: var(--color-bg-cta);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-s);
+    padding: var(--spacing-xs) var(--spacing-s);
+
+    &[type="range"] {
+      padding: 0;
+    }
+
+    &::placeholder {
+      color: var(--color-fg-tertiary);
+    }
+  }
+
+  select {
+    cursor: pointer;
+  }
+
+  /* auto-grow textareas by default. Override min-width/width and max-height to constrain to surroundings */
+  textarea {
+    field-sizing: content;
+    min-width: 10em;
+    max-width: 100%;
+  }
+
+  /* Improve usability a bit by making input labels visibly clickable */
+  label:has(input) {
+    cursor: pointer;
+  }
+
+  [interestfor] {
+    /* The default interest-delay is quite long for tooltips. Use a snappier default */
+    /* biome-ignore lint/correctness/noUnknownProperty: new-ish property */
+    interest-delay: 0.15s;
+  }
+}

@@ -1,0 +1,170 @@
+/**
+# Button
+
+Here's an element you already know and love: the humble button.
+
+Do you really need a giant Button.tsx file in your project that supports 50 props? The browser already gives us one for free and we are not using it to its full potential.
+
+```html
+<hstack-i wrap="wrap">
+  <button>Default</button>
+  <button data-variant="outline">Outline</button>
+  <button data-variant="outline" data-tone="danger">Danger</button>
+  <a href="#fake" data-as="button">Link Button</a>
+  <button data-variant="text">Text button</button>
+  <button data-variant="ghost">Ghost button</button>
+  <button data-size="l">Large button</button>
+</hstack-i>
+```
+
+Loading and disabled states, using standard attributes:
+```html
+<hstack-i>
+<button disabled aria-busy="true">Loading</button>
+<button disabled>Disabled</button>
+</hstack-i>
+```
+
+Small buttons:
+```html
+<hstack-i gap="s" vpad="s" wrap="wrap">
+  <button data-size="s">Smol</button>
+  <button data-size="s" data-variant="outline">Smol2</button>
+  <button data-size="s" data-variant="outline" disabled aria-busy="true">Smol</button>
+  <button data-size="s" data-variant="outline" data-tone="danger">Danger</button>
+</hstack-i>
+```
+
+## References
+
+* https://css-tricks.com/explaining-the-accessible-benefits-of-using-semantic-html-elements/
+
+**/
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* todo: add data-* attributes to origami.d.ts? */
+button,
+[data-as="button"] {
+  --color: var(--color-bg-cta);
+  --radius: var(--border-radius-s);
+  --borderWidth: 1px;
+
+  display: inline-flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color);
+  color: var(--color-fg-cta);
+  font-family: inherit;
+  font-size: var(--font-size-s);
+  font-weight: 500;
+  line-height: 1.7;
+  padding: var(--spacing-xxs) var(--spacing-m);
+  border: var(--borderWidth) solid var(--color);
+  /* ensure equivalent height to outline buttons */
+  border-radius: var(--radius);
+  text-decoration: none;
+  position: relative;
+
+  &:hover {
+    --color: var(--color-bg-cta-hover, var(--color-bg-cta));
+    /* ensure a[data-as="button"] hover color works */
+    color: var(--color-fg-cta);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &[data-variant="outline"] {
+    color: var(--color);
+    background-color: transparent;
+
+    &[aria-busy="true"]::before {
+      color: var(--color);
+    }
+  }
+
+  &[data-variant="text"],
+  &[data-variant="ghost"] {
+    --color: var(--color-fg-link);
+    color: var(--color);
+    background-color: transparent;
+    border: none;
+  }
+
+  &[data-variant="text"] {
+    font-weight: inherit;
+    padding: 0;
+
+    &:hover {
+      --color: var(--color-fg-link-hover);
+    }
+  }
+
+  &[data-variant="ghost"]:hover {
+    background-color: var(--color-bg-highlight);
+  }
+
+  &[data-tone="danger"] {
+    --color: var(--color-fg-danger);
+
+    &[data-variant="ghost"]:hover {
+      background-color: var(--color-bg-danger);
+    }
+  }
+
+  &[data-size="s"] {
+    font-size: var(--font-size-xs);
+    padding: 0 var(--spacing-m);
+  }
+
+  &[data-size="l"] {
+    font-size: var(--font-size-m);
+    padding: var(--spacing-s) var(--spacing-xl);
+  }
+
+  &:disabled,
+  &:disabled:hover {
+    /* don't have hover state override this */
+    --color: var(--color-bg-cta);
+  }
+
+  &[aria-busy="true"] {
+    /* hide text so only spinner is visible */
+    color: transparent;
+  }
+
+  &[aria-busy="true"]::before {
+    /* TODO: center this in the button when it's visible */
+    /* tricky because we're already using transform for the animation */
+    content: "";
+    width: 1em;
+    height: 1em;
+    color: var(--color-fg-cta);
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+
+    /* this appears to successfully center the spinner in the button */
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  /* prevent icons from getting squished */
+  /* TODO: fix alignment bug when icon is taller than text */
+  svg {
+    flex-shrink: 0;
+  }
+}

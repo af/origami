@@ -1,0 +1,48 @@
+/**
+# Toggletip
+
+Note: This uses the "implicit anchor", so the tooltip will position itself relative to the element (button) that triggered it.
+
+```html
+<button popovertarget="tip-x">
+  Click me for more info
+</button>
+<toggletip-i role="status" id="tip-x" popover>
+  This is the toggletip content
+</toggletip-i>
+```
+
+```html
+  <button data-variant="text" popovertarget="tip-y" aria-label="More info">
+    ⓘ
+  </button>
+<toggletip-i role="status" id="tip-y" popover>
+  This is the toggletip content, visible after clicking
+</toggletip-i>
+```
+
+## References
+
+* https://inclusive-components.design/tooltips-toggletips/
+* https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using#popover_anchor_positioning
+
+**/
+toggletip-i {
+  --arrow-size: 6px;
+
+  margin-top: calc(1.2 * var(--arrow-size));
+  justify-self: anchor-center;
+
+  /* css arrow tooltip */
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    translate: -50% 0;
+    width: calc(2 * var(--arrow-size));
+    height: var(--arrow-size);
+    background-color: var(--color-bg-floating, var(--color-bg-primary));
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+}

@@ -1,0 +1,147 @@
+/**
+# Dropdown
+
+Initial notes
+* need popovertargetaction to close dropdown via button (suggest JS shim)
+
+```html
+<button popovertarget="menu-a">
+  Open dropdown
+</button>
+<dropdown-i id="menu-a" popover aria-label="More actions">
+  <button>Action 1</button>
+  <button>Action 2, longer label</button>
+  <button popovertarget="menu-a" popovertargetaction="hide">
+    <span>Action 3, even longer such that there should be ellipsis</span>
+  </button>
+</dropdown-i>
+```
+
+```html
+<button popovertarget="menu-b">
+  Open multiselect
+</button>
+<dropdown-i id="menu-b" popover>
+  <fieldset>
+    <legend>Options</legend>
+    <label>
+      <input type="checkbox" name="x" /> Click me
+    </label>
+    <label>
+      <input type="checkbox" name="y" /> And also me
+    </label>
+    <label>
+      <input type="checkbox" name="z" /> And then me too
+    </label>
+  </fieldset>
+</dropdown-i>
+```
+
+```html
+<button popovertarget="menu-c">
+  Open single select
+</button>
+<dropdown-i popover id="menu-c">
+  <fieldset>
+    <legend>Sort by</legend>
+    <label>
+      <input type="radio" name="r" value="created" /> Created at
+    </label>
+    <label>
+      <input type="radio" name="r" value="updated" /> Updated at
+    </label>
+    <label>
+      <input type="radio" name="r" value="title" /> Title
+    </label>
+  </fieldset>
+</dropdown-i>
+```
+
+```html
+<button popovertarget="menu-right">
+  Right-aligned
+</button>
+<dropdown-i align="right" popover id="menu-right">
+  <button>Right-Aligned Item 1</button>
+  <button>Right-Aligned Item 2</button>
+  <button>Right-Aligned Item 3</button>
+</dropdown-i>
+```
+
+## Gaps/Future
+
+* There's currently no standard way to make arrow keys work as expected to navigate dropdowns without adding JS handlers. You can write your own progressive enhancement to handle this, and in the future, hopefully there will be [focusgroup](https://open-ui.org/components/scoped-focusgroup.explainer/) to add this in a declarative way
+
+## References
+
+* https://developer.chrome.com/docs/css-ui/anchor-positioning-api
+
+**/
+dropdown-i {
+  max-width: 20em;
+  --pad: var(--spacing-s);
+  --pad-item-side: var(--spacing-m);
+
+  /* overrides for default popover styles in facets.css */
+  left: anchor(left);
+  position-try-fallbacks: flip-block;
+  padding: var(--pad);
+  transform-origin: 0 0;
+
+  &:popover-open {
+    display: flex;
+    flex-direction: column;
+  }
+
+  > fieldset {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    padding: 0;
+  }
+
+  > button,
+  > [data-as="button"],
+  > fieldset > label {
+    display: flex;
+    min-width: 0;
+    gap: var(--spacing-s);
+    background: none;
+    border: none;
+    border-radius: var(--border-radius-s);
+    color: inherit;
+    padding: var(--pad) var(--pad-item-side);
+    justify-content: flex-start;
+    transform: none;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:has(:focus) {
+      background: var(--color-bg-highlight);
+    }
+
+    /* because button above is a flex container, any long text that might need ellipsis needs to
+     * be wrapped in a span */
+    > span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  legend {
+    padding: 0 var(--pad-item-side);
+    float: left;
+    text-transform: uppercase;
+    color: var(--color-fg-secondary);
+    font-family: var(--font-family-micro);
+    font-size: var(--font-size-xs);
+  }
+
+  &[align="right"] {
+    left: unset;
+    right: anchor(right);
+    transform-origin: 100% 0;
+  }
+}

@@ -1,0 +1,118 @@
+/**
+# LabelledField
+
+An opinionated wrapper around a `<label>` and `<input>`/`<select>`/`<textarea>`.
+
+```html
+<labelledfield-i>
+  <label>
+    <span>My Label</span>
+    <input type="text" name="test" />
+  </label>
+</labelledfield-i>
+```
+
+```html
+<labelledfield-i>
+  <label>
+    <span>Language</span>
+    <select name="language" />
+      <option value="en">English</option>
+      <option value="fr">French</option>
+      <option value="es">Spanish</option>
+    </select>
+  </label>
+</labelledfield-i>
+```
+
+```html
+<labelledfield-i>
+  <label>
+    <span>Description</span>
+    <textarea name="description"></textarea>
+  </label>
+</labelledfield-i>
+**/
+
+labelledfield-i {
+  --border: var(--color-border);
+  --label-size: var(--font-size-xs);
+  --label-weight: normal;
+  --side-pad: var(--label-size);
+  --chevron-size: 6px;
+  position: relative;
+  display: inline-flex;
+  flex: 1;
+  flex-direction: column;
+  transition: border-color 0.2s;
+
+  &:not(:has(:user-invalid)):hover {
+    --border: var(--color-border-hover);
+  }
+
+  label {
+    display: flex;
+  }
+
+  label > span:first-child {
+    position: absolute;
+    top: 0px;
+    pointer-events: none;
+
+    color: var(--color-fg-secondary);
+    display: block;
+    font-family: var(--font-family-micro, --font-family-text);
+    font-size: var(--label-size);
+    font-weight: var(--label-weight);
+    line-height: 2;
+    padding-left: var(--side-pad);
+  }
+
+  input,
+  select,
+  textarea {
+    flex: 1 0 auto;
+    padding: calc(1.4 * var(--label-size)) var(--side-pad) var(--spacing-xxs);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-s);
+  }
+
+  textarea {
+    padding-top: var(--spacing-l);
+  }
+
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    color: var(--color-fg-primary);
+    cursor: pointer;
+    padding-right: calc(var(--side-pad) * 2 + var(--chevron-size));
+  }
+
+  /* chevron to make the widget look like a select (since we're using appearance: none) */
+  label:has(select)::after {
+    content: "";
+    position: absolute;
+    right: var(--side-pad);
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: var(--chevron-size);
+    height: var(--chevron-size);
+    border-right: 2px solid var(--color-fg-secondary);
+    border-bottom: 2px solid var(--color-fg-secondary);
+    pointer-events: none;
+  }
+
+  &:has(:user-invalid) {
+    --border: var(--color-fg-danger);
+
+    span:first-child {
+      color: var(--border);
+    }
+
+    /* Support for <div role="alert"> error messages inside the labelledfield-i wrapper */
+    [role="alert"] {
+      color: var(--border);
+    }
+  }
+}

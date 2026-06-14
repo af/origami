@@ -1,0 +1,130 @@
+/**
+# Stacks
+
+Inspired by SwiftUI's `HStack` and `VStack` views, these components give you a simple way to create simple horizontal or vertical flex containers without adding any CSS.
+
+```html
+<hstack-i>
+  <demo-block></demo-block>
+  <demo-block></demo-block>
+  <demo-block></demo-block>
+</hstack-i>
+```
+
+```html
+<vstack-i>
+  <demo-block></demo-block>
+  <demo-block></demo-block>
+  <demo-block></demo-block>
+</vstack-i>
+```
+
+## Attributes
+
+* align
+* justify
+* wrap
+* gap
+* pad
+* vpad
+* breakpoint (hstack only)
+
+## References
+
+* https://developer.apple.com/documentation/swiftui/building-layouts-with-stack-views
+* https://developer.apple.com/documentation/swiftui/hstack
+* https://developer.apple.com/documentation/swiftui/vstack
+**/
+
+vstack-i,
+[data-as="vstack-i"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+}
+
+hstack-i,
+[data-as="hstack-i"] {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-s);
+}
+
+vstack-i,
+hstack-i,
+[data-as="hstack-i"],
+[data-as="vstack-i"] {
+  &[align="start"] {
+    align-items: flex-start;
+  }
+
+  &[align="end"] {
+    align-items: flex-end;
+  }
+
+  &[align="baseline"] {
+    align-items: baseline;
+  }
+
+  &[align="center"] {
+    align-items: center;
+  }
+
+  &[align="stretch"] {
+    align-items: stretch;
+  }
+
+  &[justify="center"] {
+    justify-content: center;
+  }
+
+  &[justify="space-between"] {
+    justify-content: space-between;
+  }
+
+  &[justify="space-around"] {
+    justify-content: space-around;
+  }
+
+  &[justify="space-evenly"] {
+    justify-content: space-evenly;
+  }
+
+  &[justify="flex-end"] {
+    justify-content: flex-end;
+  }
+
+  &[wrap="wrap"] {
+    flex-wrap: wrap;
+  }
+
+  &[wrap="nowrap"] {
+    flex-wrap: nowrap;
+  }
+
+  &[wrap="wrap-reverse"] {
+    flex-wrap: wrap-reverse;
+  }
+}
+
+/* Prevent svg icons from getting squished */
+hstack-i > svg,
+vstack-i > svg {
+  flex-shrink: 0;
+}
+
+/* TODO: investigate container query support */
+@media (max-width: 900px) {
+  hstack-i[breakpoint="m"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 450px) {
+  hstack-i[breakpoint="s"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

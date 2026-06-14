@@ -1,0 +1,101 @@
+/**
+# Skeleton
+
+Basic skeleton loading component with a shimmer effect.
+
+```html
+<skeleton-i></skeleton-i>
+```
+```html
+Sizes
+<vstack-i>
+  <skeleton-i width="xxs"></skeleton-i>
+  <skeleton-i width="xs"></skeleton-i>
+  <skeleton-i width="s"></skeleton-i>
+  <skeleton-i width="m"></skeleton-i>
+  <skeleton-i width="l"></skeleton-i>
+  <skeleton-i width="xl"></skeleton-i>
+</vstack-i>
+```
+```html
+<skeleton-i radius="full"></skeleton-i>
+```
+
+This component only provides a single box; combine it with layout primitives to create more complex loading states.
+
+```html
+<vstack-i>
+  <skeleton-i></skeleton-i>
+  <skeleton-i></skeleton-i>
+  <skeleton-i width="m"></skeleton-i>
+</vstack-i>
+```
+
+```html
+<hstack-i>
+  <skeleton-i style="--width: 2rem; --height: 2rem;" radius="full"></skeleton-i>
+  <skeleton-i></skeleton-i>
+</hstack-i>
+```
+ **/
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  60%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+skeleton-i {
+  --shimmer: light-dark(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.18));
+  background: var(--color-fg-skeleton, #eaeaea);
+  border-radius: var(--border-radius-s);
+  overflow: hidden;
+  position: relative;
+  display: block;
+  height: var(--height, 1.4em);
+  width: var(--width, 90%);
+
+  /* prevent fixed-width items from getting squished */
+  flex-shrink: 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    min-width: 200px;
+    transform: translateX(-100%);
+    background: linear-gradient(115deg, transparent, var(--shimmer), transparent);
+    animation: shimmer 2.4s ease-in-out infinite;
+  }
+
+  &[width="xxs"] {
+    width: 10%;
+  }
+
+  &[width="xs"] {
+    width: 25%;
+  }
+
+  &[width="s"] {
+    width: 40%;
+  }
+
+  &[width="m"] {
+    width: 50%;
+  }
+
+  &[width="l"] {
+    width: 75%;
+  }
+
+  &[width="xl"] {
+    width: 90%;
+  }
+}
