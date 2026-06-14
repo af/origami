@@ -7,10 +7,11 @@
   "style": "src/",
   "scripts": {
     "build-dist": "bun build --minify --outfile=dist/bundle.css ./src/all.css",
-    "build-playground": "bun build --minify --outdir=dist/ ./playground/index.html",
-    "dev": "bun run --hot ./playground/server.ts",
+    "build-site": "bun build --minify --outdir=dist/ ./site/index.html",
+    "dev": "bun run --hot ./site/server.ts",
     "lint": "biome lint --write",
-    "tsc": "tsc --noEmit",
+    "start": "bun dev",
+    "ts": "tsgo --noEmit",
     "test": "biome lint && bun tsc"
   },
   "sideEffects": false,
@@ -24,10 +25,10 @@
   ],
   "author": "Aaron Franks (http://aaronfranks.com/)",
   "devDependencies": {
-    "@biomejs/biome": "^2.4.14",
-    "@types/bun": "^1.3.13",
-    "@types/react": "^19.2.14",
-    "marked": "^18.0.3",
-    "@typescript/native-preview": "^7.0.0-dev.20260503.1"
+    "@biomejs/biome": "2.5.0",
+    "@types/bun": "1.3.14",
+    "@types/react": "19.2.17",
+    "marked": "18.0.5",
+    "@typescript/native-preview": "7.0.0-dev.20260613.1"
   }
 }
