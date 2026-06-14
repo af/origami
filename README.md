@@ -1,6 +1,6 @@
-# Origami
+<img src="./origami.svg" width="150" />
 
-Experiments with custom elements
+UI components in pure CSS
 
 ## Setup
 
