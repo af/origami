@@ -68,7 +68,7 @@ button,
   font-weight: 500;
   line-height: 1.7;
   padding: var(--spacing-xxs) var(--spacing-m);
-  border: var(--borderWidth) solid var(--color);
+  border: none;
   /* ensure equivalent height to outline buttons */
   border-radius: var(--radius);
   text-decoration: none;
@@ -86,6 +86,7 @@ button,
 
   &[data-variant="outline"] {
     color: var(--color);
+    border: var(--borderWidth) solid currentColor;
     background-color: transparent;
 
     &[aria-busy="true"]::before {
