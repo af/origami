@@ -60,17 +60,6 @@
     text-wrap: pretty;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-family-display);
-    line-height: 1.2;
-    text-wrap: balance;
-  }
-
   /* https://meowni.ca/hidden.is.a.lie.html */
   [hidden] {
     display: none !important;

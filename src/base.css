@@ -9,6 +9,17 @@
     min-height: 100dvh;
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-family-display);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
   body {
     display: flex;
     flex-direction: column;
@@ -36,10 +47,11 @@
 
   a {
     color: var(--color-fg-link);
-  }
+    transition: color 0.1s;
 
-  a:hover {
-    color: var(--color-fg-link-hover);
+    &:hover {
+      color: var(--color-fg-link-hover);
+    }
   }
 
   p + p {
