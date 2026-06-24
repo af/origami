@@ -14,7 +14,7 @@
     "lint": "biome lint --write",
     "start": "bun dev",
     "ts": "tsgo --noEmit",
-    "test": "bun scripts/build-types.ts --check && biome lint && bun tsc"
+    "test": "bun scripts/build-types.ts --check && biome lint && bun tsc && bun test"
   },
   "sideEffects": false,
   "repository": {
