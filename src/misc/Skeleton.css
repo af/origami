@@ -37,6 +37,15 @@ This component only provides a single box; combine it with layout primitives to 
   <skeleton-i></skeleton-i>
 </hstack-i>
 ```
+
+```typescript
+type Attributes = {
+  'skeleton-i': {
+    width?: 's' | 'm' | 'l' | 'xl'
+    radius?: 's' | 'm' | 'full' | 'none'
+  }
+}
+```
  **/
 @keyframes shimmer {
   0% {

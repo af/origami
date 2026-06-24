@@ -17,6 +17,15 @@
   <badge-i tone="neutral" radius="full" contenteditable>Full radius</badge-i>
 </hstack-i>
 ```
+
+```typescript
+type Attributes = {
+  'badge-i': {
+    tone?: 'info' | 'neutral' | 'danger' | 'warn' | 'success'
+    radius?: 's' | 'm' | 'full' | 'none'
+  }
+}
+```
 **/
 badge-i {
   align-items: center;

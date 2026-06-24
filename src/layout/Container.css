@@ -17,6 +17,15 @@ A container component. Provides a responsive container with a max-width and cent
   <button type="submit">Submit</button>
 </container-i>
 ```
+
+```typescript
+type Attributes = {
+  'container-i': BlockAttrs & {
+    direction?: 'column' | 'row' | 'row-reverse' | 'responsive'
+    variant?: 'narrow'
+  }
+}
+```
 **/
 container-i,
 [data-as="container-i"] {

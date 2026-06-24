@@ -5,12 +5,15 @@ General purprose alert banner, supporting several `tone` variants.
 
 Acts as a block container; use an hstack child if you need horizontally laid out content.
 
-## Attributes
+`role="alert"` is required.
 
-* `role` (required) - "alert"
-* `tone` - "success" | "warn" | "danger" | "info" | "neutral"
-* `pad` - "xs" | "s" | "m" | "l" | "xl"
-* `vpad` - "xs" | "s" | "m" | "l" | "xl"
+```typescript
+type Attributes = {
+  'alert-i': BlockAttrs & {
+    tone?: 'success' | 'warn' | 'danger' | 'neutral' | 'info'
+  }
+}
+```
 
 ```html
 <alert-i role="alert">

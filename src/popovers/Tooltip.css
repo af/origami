@@ -1,7 +1,7 @@
 /**
 # Tooltip
 
-## ⚠ Experimental, limited browser support
+## ⚠ Experimental: limited browser support
 
 Hoverable tooltips. Uses [Interest Invokers](https://caniuse.com/wf-interest-invokers) which are not yet widely supported (Chromium-only as of this writing). You can write a JS polyfill to call `popover.showPopover()` and `popover.hidePopover()` on pointerover/pointerout and focusin/focusout events in other browsers.
 
@@ -34,6 +34,14 @@ Hoverable tooltips. Uses [Interest Invokers](https://caniuse.com/wf-interest-inv
 * https://frontendmasters.com/blog/using-the-popover-api-for-html-tooltips/
 * https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using#popover_anchor_positioning
 
+```typescript
+type Attributes = {
+  'tooltip-i': {
+    role?: 'tooltip'
+    popover?: 'hint'
+  }
+}
+```
 **/
 tooltip-i {
   --arrow-size: 6px;

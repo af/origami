@@ -32,6 +32,13 @@ Sometimes you might want the whole card to function as a link. To do that, use `
   </p>
 </a>
 ```
+
+```typescript
+type Attributes = {
+  'card-i': BlockAttrs
+  'card-cover-i': {}
+}
+```
 **/
 
 card-i,

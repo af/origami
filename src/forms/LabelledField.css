@@ -32,6 +32,13 @@ An opinionated wrapper around a `<label>` and `<input>`/`<select>`/`<textarea>`.
     <textarea name="description"></textarea>
   </label>
 </labelledfield-i>
+```
+
+```typescript
+type Attributes = {
+  'labelledfield-i': {}
+}
+```
 **/
 
 labelledfield-i {

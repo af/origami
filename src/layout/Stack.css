@@ -19,15 +19,12 @@ Inspired by SwiftUI's `HStack` and `VStack` views, these components give you a s
 </vstack-i>
 ```
 
-## Attributes
-
-* align
-* justify
-* wrap
-* gap
-* pad
-* vpad
-* breakpoint (hstack only)
+```typescript
+type Attributes = {
+  'vstack-i': StackAttrs
+  'hstack-i': StackAttrs & { breakpoint?: 's' | 'm' }
+}
+```
 
 ## References
 

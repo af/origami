@@ -26,6 +26,14 @@ Note: This uses the "implicit anchor", so the tooltip will position itself relat
 * https://inclusive-components.design/tooltips-toggletips/
 * https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using#popover_anchor_positioning
 
+```typescript
+type Attributes = {
+  'toggletip-i': {
+    role?: 'status'
+    popover?: 'auto' | 'manual'
+  }
+}
+```
 **/
 toggletip-i {
   --arrow-size: 6px;

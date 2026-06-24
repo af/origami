@@ -21,6 +21,12 @@ state of the toggle.
   A disabled switch
 </label>
 ```
+
+```typescript
+type Attributes = {
+  'switch-i': {}
+}
+```
 **/
 
 switch-i {

@@ -68,6 +68,14 @@ Initial notes
 </dropdown-i>
 ```
 
+```typescript
+type Attributes = {
+  'dropdown-i': {
+    align?: 'left' | 'right'
+  }
+}
+```
+
 ## Gaps/Future
 
 * There's currently no standard way to make arrow keys work as expected to navigate dropdowns without adding JS handlers. You can write your own progressive enhancement to handle this, and in the future, hopefully there will be [focusgroup](https://open-ui.org/components/scoped-focusgroup.explainer/) to add this in a declarative way

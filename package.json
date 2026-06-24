@@ -6,13 +6,15 @@
   "types": "origami.d.ts",
   "style": "src/",
   "scripts": {
+    "build-types": "bun scripts/build-types.ts",
+    "build-docs": "NODE_ENV=production bun site/buildMarkdown.ts",
     "build-dist": "bun build --minify --outfile=dist/bundle.css ./src/all.css",
-    "build-site": "bun build --minify --outdir=dist/ ./site/index.html",
+    "build-site": "bun run build-docs && bun build --minify --outdir=dist/ ./site/index.html",
     "dev": "bun run --hot ./site/server.ts",
     "lint": "biome lint --write",
     "start": "bun dev",
     "ts": "tsgo --noEmit",
-    "test": "biome lint && bun tsc"
+    "test": "bun scripts/build-types.ts --check && biome lint && bun tsc"
   },
   "sideEffects": false,
   "repository": {
