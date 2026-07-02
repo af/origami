@@ -81,7 +81,7 @@ button,
   }
 
   &:active:not(:disabled) {
-    transform: scale(0.98);
+    transform: translateY(1px);
   }
 
   &[data-variant="outline"] {
