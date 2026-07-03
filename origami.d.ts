@@ -1,5 +1,5 @@
 // GENERATED FILE — do not edit by hand.
-// Element attribute types live in the `dts` fenced blocks of each component's
+// Element attribute types live in the `typescript` fenced blocks of each component's
 // CSS docblock; run `bun run build-types` to regenerate.
 
 import type { DetailedHTMLProps, HTMLAttributes } from 'react'
@@ -29,27 +29,15 @@ declare module 'react/jsx-runtime' {
       'switch-i': CustomElementProps
       'card-i': CustomElementProps<BlockAttrs>
       'card-cover-i': CustomElementProps
-      'container-i': CustomElementProps<
-        BlockAttrs & {
-          direction?: 'column' | 'row' | 'row-reverse' | 'responsive'
-          variant?: 'narrow'
-        }
-      >
+      'container-i': CustomElementProps<BlockAttrs & { direction?: 'column' | 'row' | 'row-reverse' | 'responsive'; variant?: 'narrow' }>
       'vstack-i': CustomElementProps<StackAttrs>
       'hstack-i': CustomElementProps<StackAttrs & { breakpoint?: 's' | 'm' }>
-      'alert-i': CustomElementProps<
-        BlockAttrs & { tone?: 'success' | 'warn' | 'danger' | 'neutral' | 'info' }
-      >
-      'badge-i': CustomElementProps<{
-        tone?: 'info' | 'neutral' | 'danger' | 'warn' | 'success'
-        radius?: 's' | 'm' | 'full' | 'none'
-      }>
-      'skeleton-i': CustomElementProps<{
-        width?: 's' | 'm' | 'l' | 'xl'
-        radius?: 's' | 'm' | 'full' | 'none'
-      }>
+      'alert-i': CustomElementProps<BlockAttrs & { tone?: 'success' | 'warn' | 'danger' | 'neutral' | 'info' }>
+      'badge-i': CustomElementProps<{ tone?: 'info' | 'neutral' | 'danger' | 'warn' | 'success'; radius?: 's' | 'm' | 'full' | 'none' }>
+      'skeleton-i': CustomElementProps<{ width?: 's' | 'm' | 'l' | 'xl'; radius?: 's' | 'm' | 'full' | 'none' }>
       'dropdown-i': CustomElementProps<{ align?: 'left' | 'right' }>
-      'toggletip-i': CustomElementProps<{ role?: 'status'; popover?: 'auto' | 'manual' }>
+      'toastgroup-i': CustomElementProps<{ role: 'region'; 'aria-label': string; 'aria-live': 'polite' }>
+      'toggletip-i': CustomElementProps<{ role: 'status'; popover: 'auto' | 'manual' }>
       'tooltip-i': CustomElementProps<{ role?: 'tooltip'; popover?: 'hint' }>
     }
   }

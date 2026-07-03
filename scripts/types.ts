@@ -31,6 +31,10 @@ export type Attr = {
 
 export type Mixin = { extends?: string[]; attrs: Attr[] }
 
+// Quote an attribute name for TS output when it isn't a bare identifier
+// (e.g. `aria-label` must become `'aria-label'`).
+const keyName = (name: string): string => (/^[A-Za-z_$][\w$]*$/.test(name) ? name : `'${name}'`)
+
 const lit = (...values: string[]): Pick<Attr, 'type' | 'values'> => ({
   values,
   type: values.map((v) => `'${v}'`).join(' | '),
@@ -107,9 +111,10 @@ const parseObject = (text: string): Attr[] => {
     .map((m) => m.trim())
     .filter(Boolean)
     .map((member) => {
-      const mm = /^([A-Za-z_][\w-]*)(\?)?\s*:\s*([\s\S]+)$/.exec(member)
+      const mm = /^(?:'([^']*)'|([A-Za-z_][\w-]*))(\?)?\s*:\s*([\s\S]+)$/.exec(member)
       if (!mm) throw new Error(`Cannot parse attribute member: ${member}`)
-      const [, name, opt, rawType] = mm
+      const [, quoted, bare, opt, rawType] = mm
+      const name = quoted ?? bare
       const type = rawType.trim()
       return { name, optional: Boolean(opt), type, values: stringUnionValues(type) }
     })
@@ -216,7 +221,9 @@ export const serializeMixins = (): string =>
   Object.entries(mixins)
     .map(([name, mx]) => {
       const ext = mx.extends?.length ? `${mx.extends.join(' & ')} & ` : ''
-      const body = mx.attrs.map((a) => `  ${a.name}${a.optional ? '?' : ''}: ${a.type}`).join('\n')
+      const body = mx.attrs
+        .map((a) => `  ${keyName(a.name)}${a.optional ? '?' : ''}: ${a.type}`)
+        .join('\n')
       return `type ${name} = ${ext}{\n${body}\n}`
     })
     .join('\n\n')
@@ -225,7 +232,7 @@ export const serializeMixins = (): string =>
 export const serializeType = (raw: string): string => {
   const { mixins: refs, attrs } = parseType(raw)
   const obj = attrs.length
-    ? `{ ${attrs.map((a) => `${a.name}${a.optional ? '?' : ''}: ${a.type}`).join('; ')} }`
+    ? `{ ${attrs.map((a) => `${keyName(a.name)}${a.optional ? '?' : ''}: ${a.type}`).join('; ')} }`
     : ''
   return [...refs, obj].filter(Boolean).join(' & ')
 }

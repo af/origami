@@ -49,19 +49,7 @@ ${entries}
 `
 }
 
-// Run the generated text through biome so output matches the committed file's
-// formatting, keeping --check stable.
-const formatTs = (content: string): string => {
-  const proc = Bun.spawnSync(
-    ['./node_modules/.bin/biome', 'format', '--stdin-file-path=origami.d.ts'],
-    { stdin: Buffer.from(content) },
-  )
-  if (proc.exitCode !== 0) throw new Error(`biome format failed: ${proc.stderr.toString()}`)
-  return proc.stdout.toString()
-}
-
-const output = formatTs(render())
-
+const output = render()
 if (process.argv.includes('--check')) {
   const current = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf-8') : ''
   if (current !== output) {

@@ -1,0 +1,95 @@
+/**
+# Toast
+
+A container for rendering popup notifications.
+
+```html
+<toastgroup-i role="region" aria-label="Notifications" aria-live="polite">
+  <div popover="manual" id="t1">
+    <h1>Toast 1</h1>
+    <p>This is a toast message.</p>
+    <button data-size="s" commandfor="toast1" command="hide-popover" aria-label="Close">×</button>
+  </div>
+  <div popover="manual" id="t2">
+    <h1>Toast 2</h1>
+    <p>This is another toast message.</p>
+    <button data-size="s" commandfor="toast2" command="hide-popover" aria-label="Close">×</button>
+  </div>
+</toastgroup-i>
+<button commandfor="t1" command="toggle-popover">Toggle Toast 1</button>
+<button commandfor="t2" command="toggle-popover">Toggle Toast 2</button>
+```
+
+More information:
+
+* https://css-tricks.com/invoker-commands-additional-ways-to-work-with-dialog-popover-and-more/
+* https://css-tricks.com/the-different-and-modern-ways-to-toggle-content/#aa-the-dialog-element-dialog
+* https://getbootstrap.com/docs/5.0/components/toasts/#accessibility
+
+TODO
+* tone attr
+
+```typescript
+type Attributes = {
+  'toastgroup-i': {
+    role: 'region'
+    'aria-label': string
+    'aria-live': 'polite'
+  }
+}
+```
+ **/
+toastgroup-i {
+  --bg: var(--color-bg-primary);
+  --shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  --width: 300px;
+
+  /* TODO: use anchor positioning, relative to toastgroup */
+  >[popover] {
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-m);
+    background-color: var(--bg);
+    color: var(--color-fg-primary);
+    flex-direction: column;
+    padding: var(--spacing-m) var(--spacing-l);
+    transition: all 0.2s ease-in-out;
+    box-shadow: var(--shadow);
+    position: relative;
+    inset: auto 20px 20px auto;
+    width: var(--width);
+    /* todo: mobile handling */
+
+    /* TODO: attempted stacking relies on source order, not order of toast invocation */
+    +[popover] {
+      transform: translateY(-10px);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: 1rem;
+    }
+
+    >button[command="hide-popover"] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: transparent;
+      border: none;
+      padding: var(--spacing-s) var(--spacing-m);
+      color: var(--color-fg-secondary);
+
+      &:hover {
+        color: var(--color-fg-primary);
+      }
+    }
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+  }
+}

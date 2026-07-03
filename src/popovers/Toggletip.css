@@ -29,8 +29,8 @@ Note: This uses the "implicit anchor", so the tooltip will position itself relat
 ```typescript
 type Attributes = {
   'toggletip-i': {
-    role?: 'status'
-    popover?: 'auto' | 'manual'
+    role: 'status'
+    popover: 'auto' | 'manual'
   }
 }
 ```
