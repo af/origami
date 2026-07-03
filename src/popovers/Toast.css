@@ -8,17 +8,34 @@ A container for rendering popup notifications.
   <div popover="manual" id="t1">
     <h1>Toast 1</h1>
     <p>This is a toast message.</p>
-    <button data-size="s" commandfor="toast1" command="hide-popover" aria-label="Close">×</button>
+    <button commandfor="toast1" command="hide-popover" aria-label="Close">×</button>
   </div>
-  <div popover="manual" id="t2">
+  <div popover="manual" id="t2" data-autodismiss onanimationend="this.hidePopover()">
     <h1>Toast 2</h1>
-    <p>This is another toast message.</p>
-    <button data-size="s" commandfor="toast2" command="hide-popover" aria-label="Close">×</button>
+    <p>This one auto-dismisses after <code>--autodismiss-duration</code> (default 5s).</p>
+    <button commandfor="t2" command="hide-popover" aria-label="Close">×</button>
   </div>
 </toastgroup-i>
 <button commandfor="t1" command="toggle-popover">Toggle Toast 1</button>
-<button commandfor="t2" command="toggle-popover">Toggle Toast 2</button>
+<button commandfor="t2" command="show-popover">Show Toast 2 (autodismiss)</button>
 ```
+
+## Auto-dismiss (`data-autodismiss`)
+
+Add `data-autodismiss` on a toast div to fade it out after `--autodismiss-duration` (default 5s), pausing on hover. 
+A thin progress bar appears at the bottom of the toast; you can style it with `--progress-color` / `--progress-size`.
+
+For the dismissal behavior, CSS cannot call `hidePopover()`, so the animation only *visually* hides the
+toast — the popover stays open in the top layer. This has two consequences:
+
+1. Re-showing the same element won't reset it. `show-popover` is a no-op on an
+   already-open popover, so nothing restarts the animation. For pure no-JS
+   usage, treat autodismiss toasts as one-shot transient nodes: render a fresh
+   element per notification rather than reusing one persistent popover.
+2. To reuse a single element (and to truly remove the toast from the top layer /
+   a11y tree), you can close it when the animation ends with a one-liner:
+   `onanimationend="this.hidePopover()"` — as shown above. This is the only part
+   that requires JS; the fade itself is pure CSS.
 
 More information:
 
@@ -28,6 +45,8 @@ More information:
 
 TODO
 * tone attr
+* positioning of toastgroup & stacking. Use anchoring to toastgroup?
+* mobile positioning testing & fallback
 
 ```typescript
 type Attributes = {
@@ -43,8 +62,11 @@ toastgroup-i {
   --bg: var(--color-bg-primary);
   --shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   --width: 300px;
+  --autodismiss-duration: 5s;
+  --progress-color: var(--color-border);
+  --progress-size: 3px;
+  font-size: var(--font-size-s);
 
-  /* TODO: use anchor positioning, relative to toastgroup */
   >[popover] {
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius-m);
@@ -54,10 +76,9 @@ toastgroup-i {
     padding: var(--spacing-m) var(--spacing-l);
     transition: all 0.2s ease-in-out;
     box-shadow: var(--shadow);
-    position: relative;
+    position: fixed;
     inset: auto 20px 20px auto;
     width: var(--width);
-    /* todo: mobile handling */
 
     /* TODO: attempted stacking relies on source order, not order of toast invocation */
     +[popover] {
@@ -91,5 +112,62 @@ toastgroup-i {
       opacity: 0;
       transform: translateY(5px);
     }
+
+    /*
+     * Auto-dismiss: fade the toast out after --autodismiss-duration. CSS can't call
+     * hidePopover(), so the popover stays technically open in the top layer;
+     * visibility:hidden drops its pointer-events so it doesn't block clicks.
+     * Pauses while hovered so users can read/interact.
+     */
+    &[data-autodismiss]:popover-open {
+      animation: toast-autodismiss var(--autodismiss-duration) forwards;
+      /* clip the progress bar in case of rounded corners on the toast */
+      overflow: hidden;
+
+      /* Progress bar growing left-to-right over the same autodismiss duration */
+      &::after {
+        content: "";
+        position: absolute;
+        inset-inline: 0;
+        bottom: 0;
+        height: var(--progress-size);
+        background-color: var(--progress-color);
+        transform-origin: left;
+        animation: toast-progress var(--autodismiss-duration) linear forwards;
+      }
+
+      &:hover {
+        animation-play-state: paused;
+
+        &::after {
+          animation-play-state: paused;
+        }
+      }
+    }
+  }
+}
+
+@keyframes toast-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes toast-autodismiss {
+
+  0%,
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(5px);
+    visibility: hidden;
   }
 }
