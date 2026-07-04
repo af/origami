@@ -16,26 +16,21 @@ A container for rendering popup notifications.
     <button commandfor="t2" command="hide-popover" aria-label="Close">×</button>
   </div>
 </toastgroup-i>
+
+<vstack-i>
 <button commandfor="t1" command="toggle-popover">Toggle Toast 1</button>
 <button commandfor="t2" command="show-popover">Show Toast 2 (autodismiss)</button>
+</vstack-i>
 ```
 
-## Auto-dismiss (`data-autodismiss`)
+## Auto-dismiss
 
-Add `data-autodismiss` on a toast div to fade it out after `--autodismiss-duration` (default 5s), pausing on hover. 
-A thin progress bar appears at the bottom of the toast; you can style it with `--progress-color` / `--progress-size`.
+To make a toast close itself automatically after a delay, add `data-autodismiss` on a toast div. It'll pause the timer when you hover the toast as well.
+A thin progress bar is rendered at the bottom of the toast; you can style it with `--progress-color` / `--progress-size`.
 
-For the dismissal behavior, CSS cannot call `hidePopover()`, so the animation only *visually* hides the
-toast — the popover stays open in the top layer. This has two consequences:
-
-1. Re-showing the same element won't reset it. `show-popover` is a no-op on an
-   already-open popover, so nothing restarts the animation. For pure no-JS
-   usage, treat autodismiss toasts as one-shot transient nodes: render a fresh
-   element per notification rather than reusing one persistent popover.
-2. To reuse a single element (and to truly remove the toast from the top layer /
-   a11y tree), you can close it when the animation ends with a one-liner:
-   `onanimationend="this.hidePopover()"` — as shown above. This is the only part
-   that requires JS; the fade itself is pure CSS.
+For the auto-dismiss behavior, CSS cannot call `hidePopover()`, so the animation only *visually* hides the
+toast, and the popover stays open in the top layer. This is problematic if you want to re-use the same toast later, so you can add
+`onanimationend="this.hidePopover()"` on each auto-dismissed toast div and it will reset itself.
 
 More information:
 
