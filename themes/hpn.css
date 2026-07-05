@@ -1,0 +1,72 @@
+@layer ori-reset, ori-base, ori-components, ori-override, app;
+
+:root[data-theme="hpn"] {
+  color-scheme: dark;
+  --color-bg-ground: #1c1c1c;
+  --color-bg-primary: #222323;
+  --color-bg-floating: #333;
+  --color-bg-highlight: #243932;
+  --color-border: #444944;
+  --color-border-secondary: #303430;
+
+  --color-fg-primary: rgb(237, 238, 237);
+  --color-fg-secondary: rgb(178, 185, 183);
+  --color-fg-tertiary: rgb(154, 162, 160);
+  --color-fg-disabled: #777;
+
+  --color-fg-success: #26bb5f;
+  --color-bg-success: #1a2a1a;
+  --color-fg-warn: #f0a30a;
+  --color-bg-warn: #f0a30a10;
+  --color-fg-danger: #ee5d81;
+  --color-bg-danger: #3a1a1a;
+  --color-fg-info: #3995f9;
+  --color-bg-info: #1a2a4a;
+
+  --color-fg-skeleton: #444;
+  --color-fg-skeleton-shimmer: rgba(255, 255, 255, 0.1);
+
+  --color-fg-link: #7dfbd4;
+  --color-fg-link-hover: #9dffef;
+  --color-bg-cta: #229584;
+  --color-bg-cta-hover: #3db1a0;
+  --color-fg-cta: white;
+
+  --spacing-mobile-side-padding: 16px;
+  --spacing-xxs: 2px;
+  --spacing-xs: 3px;
+  --spacing-s: 6px;
+  --spacing-m: 12px;
+  --spacing-l: 18px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 36px;
+  --spacing-3xl: 64px;
+  --container-width-max: 1100px;
+
+  --font-size-l: 18px;
+  --font-size-m: 16px;
+  --font-size-s: 14px;
+  --font-size-xs: 12px;
+
+  --border-radius-s: 2px;
+  --border-radius-m: 4px;
+  --border-radius-full: 999px;
+
+  --font-family-text: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  --font-family-display: "League Spartan", sans-serif;
+  --font-family-micro: system-ui, sans-serif;
+
+  /* WIP: Missing color variables from basic.css */
+  --color-border-hover: #556055;
+  --font-size-xl: 24px;
+  --font-size-2xl: 30px;
+  --shadow-m: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@font-face {
+  font-family: "League Spartan";
+  font-weight: 100 900;
+  src: local(LeagueSpartan);
+  /* url("/fonts/LeagueSpartan-variable.woff2") format("woff2"); */
+  font-display: swap;
+}

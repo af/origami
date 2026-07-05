@@ -1,0 +1,79 @@
+@layer ori-reset, ori-base, ori-components, ori-override, app;
+
+:root[data-theme="basic"] {
+  color-scheme: light;
+  /* Colors - Background — aged paper / parchment */
+  --color-bg-ground: #f5eee1;
+  --color-bg-primary: #faf5e9;
+  --color-bg-highlight: #f2e7cd;
+
+  /* Colors - Text — warm sepia ink */
+  --color-fg-primary: #3b3220;
+  --color-fg-secondary: #857552;
+  --color-fg-tertiary: #a89877;
+  --color-fg-disabled: #c0b399;
+
+  /* Antique gold accent */
+  --color-bg-cta: #bd7a24;
+  --color-bg-cta-hover: #d99a3f;
+  --color-fg-cta: #fdfbf4;
+  --color-fg-link: #b5651d;
+  --color-fg-link-hover: #cf7a2a;
+
+  --color-border: #ddceb0;
+  --color-border-secondary: #e8ddc6;
+  --color-border-hover: #cbb78f;
+
+  /* Colors - Status — muted & warm-tinted to sit on the parchment palette */
+  --color-fg-info: #2f6d84;
+  --color-bg-info: #e4ecec;
+  --color-fg-warn: #8a5f10;
+  --color-bg-warn: #f7eccf;
+  --color-fg-danger: #b23a2e;
+  --color-bg-danger: #f6e0d6;
+  --color-fg-success: #566f22;
+  --color-bg-success: #edefd3;
+
+  /* Font Sizes */
+  --font-size-xs: 12px;
+  --font-size-s: 14px;
+  --font-size-m: 16px;
+  --font-size-l: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 30px;
+
+  --border-radius-s: 3px;
+  --border-radius-m: 6px;
+  --border-radius-full: 999px;
+
+  --shadow-m: 0 3px 8px rgba(60, 45, 20, 0.1);
+
+  --spacing-xxs: 2px;
+  --spacing-xs: 4px;
+  --spacing-s: 8px;
+  --spacing-m: 16px;
+  --spacing-l: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
+  --font-family-text: Palatino, serif;
+  --font-family-display: Palatino, serif;
+  --font-family-micro: system-ui, sans-serif;
+}
+
+@layer ori-override {
+  :root[data-theme="basic"] {
+    button,
+    a[data-as="button"] {
+      font-weight: 600;
+    }
+
+    /* Default badge inherits the blue `info` colors, which clash with the
+     * golden palette — give the untoned badge a soft-gold look instead. */
+    badge-i:not([tone]) {
+      background: var(--color-bg-highlight);
+      color: #7a4e12;
+    }
+  }
+}
