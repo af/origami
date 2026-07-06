@@ -11,10 +11,10 @@ A container component. Provides a responsive container with a max-width and cent
 ```
 
 ```html-wide
-<container-i data-as="card-i" variant="narrow" gap="m" pad="xl">
+<container-i data-as="card-i" variant="narrow" gap="s" pad="xl">
   <h3>Narrow container (as a card)</h3>
   <input type="text" placeholder="Your Name">
-  <button type="submit">Submit</button>
+  <button data-size="l" type="submit">Submit</button>
 </container-i>
 ```
 
@@ -55,6 +55,7 @@ container-i,
 }
 
 @media (max-width: 767px) {
+
   container-i,
   [data-as="container-i"] {
     padding-left: var(--spacing-mobile-side-padding, 1rem);

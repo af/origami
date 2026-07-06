@@ -10,6 +10,7 @@ Acts as a block container; use an hstack child if you need horizontally laid out
 ```typescript
 type Attributes = {
   'alert-i': BlockAttrs & {
+    role: 'alert'
     tone?: 'success' | 'warn' | 'danger' | 'neutral' | 'info'
   }
 }
@@ -50,10 +51,10 @@ alert-i {
   --color: var(--color-fg-info);
   --bg: var(--color-bg-info);
   --padding: var(--spacing-m);
-  --gap: var(--spacing-xs);
 
   background-color: var(--bg);
-  border: 0.5px solid currentColor;
+  /* TODO: consider adding a prop for borders */
+  /* border: 0.5px solid currentColor; */
   color: var(--color);
   display: block;
   font-size: var(--font-size-s);
