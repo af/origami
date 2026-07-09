@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="basic">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origami</title>
+    <link rel="stylesheet" href="../themes/basic.css">
+    <link rel="stylesheet" href="../themes/hpn.css">
+    <link rel="stylesheet" href="/src/all.css">
+    <link rel="stylesheet" href="./site.css">
+  </head>
+  <body>
+    <container-i direction="responsive">
+      <a class="logo" href="/" style="text-decoration: none; color: inherit;">
+        <img src="../origami.svg" alt="Origami" width="100" height="100">
+      </a>
+      <nav data-as="vstack-i" gap="l">
+        <div>
+          <h2>Variables</h2>
+          <a href="#docs/Layers">Layers</a>
+          <a href="#docs/Color">Color</a>
+          <a href="#docs/Spacing">Spacing</a>
+        </div>
+
+        <div>
+          <h2>Layout</h2>
+          <a href="#layout/Container">Container</a>
+          <a href="#layout/Stack">HStack & VStack</a>
+          <a href="#layout/Card">Card</a>
+        </div>
+
+        <div>
+          <h2>Forms</h2>
+          <a href="#forms/Button">Button</a>
+          <a href="#forms/ButtonGroup">ButtonGroup</a>
+          <a href="#forms/Switch">Switch</a>
+          <a href="#forms/LabelledField">LabelledField</a>
+        </div>
+
+        <div>
+          <h2>Popovers</h2>
+          <a href="#popovers/Dropdown">Dropdown</a>
+          <a href="#popovers/Toggletip">Toggletip</a>
+          <a href="#popovers/Tooltip">Tooltip</a>
+          <a href="#popovers/Toast">Toast</a>
+        </div>
+
+        <div>
+          <h2>Misc</h2>
+          <a href="#misc/Alert">Alert</a>
+          <a href="#misc/Badge">Badge</a>
+          <a href="#misc/Eyebrow">Eyebrow</a>
+          <a href="#misc/Skeleton">Skeleton</a>
+        </div>
+
+        <labelledfield-i>
+          <label>
+            <span>Theme</span>
+            <select name="theme" id="theme">
+              <option value="basic">Basic</option>
+              <option value="hpn">HPN</option>
+            </select>
+          </label>
+        </labelledfield-i>
+      </nav>
+      <main>
+        <p>Experiments with CSS custom elements</p>
+      </main>
+    </container-i>
+    <script type="module" src="./site.js"></script>
+  </body>
+</html>
