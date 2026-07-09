@@ -1,5 +1,8 @@
 /**
-# Container
+---
+title: Container
+description: Responsive, centered container with a default width of content
+---
 
 A container component. Provides a responsive container with a max-width and centered content.
 
@@ -55,7 +58,6 @@ container-i,
 }
 
 @media (max-width: 767px) {
-
   container-i,
   [data-as="container-i"] {
     padding-left: var(--spacing-mobile-side-padding, 1rem);

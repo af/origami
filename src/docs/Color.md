@@ -1,4 +1,7 @@
-# Color
+---
+title: Color
+description: Minimal, themeable, readable color conventions
+---
 
 For components to be themable, they need to have access to color variables that your set in your
 **theme file**. This page lists all of the variables used by this library and its example themes.

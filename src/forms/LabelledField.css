@@ -1,5 +1,8 @@
 /**
-# LabelledField
+---
+title: LabelledField
+description: Integrated layout and label styles for inputs, selects, and textareas
+---
 
 An opinionated wrapper around a `<label>` and `<input>`/`<select>`/`<textarea>`.
 

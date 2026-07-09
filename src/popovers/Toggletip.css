@@ -1,5 +1,8 @@
 /**
-# Toggletip
+---
+title: Toggletip
+description: Tooltips that show when clicking a button
+---
 
 Note: This uses the "implicit anchor", so the tooltip will position itself relative to the element (button) that triggered it.
 
