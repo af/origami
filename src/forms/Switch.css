@@ -8,7 +8,7 @@ A toggle that can be used to turn something on or off. This wraps a checkbox whi
 state of the toggle.
 
 ```html
-<label data-as="hstack-i">
+<label class="hstack-i">
   <switch-i>
    <input type="checkbox" name="someField" id="test" />
   </switch-i>
@@ -17,7 +17,7 @@ state of the toggle.
 ```
 
 ```html
-<label data-as="hstack-i">
+<label class="hstack-i">
   <switch-i>
    <input disabled type="checkbox" name="someField" id="test" />
   </switch-i>

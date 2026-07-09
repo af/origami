@@ -13,7 +13,7 @@ Do you really need a giant Button.tsx file in your project that supports 50 prop
   <button>Default</button>
   <button data-variant="outline">Outline</button>
   <button data-variant="outline" data-tone="danger">Danger</button>
-  <a href="#fake" data-as="button">Link Button</a>
+  <a href="#fake" class="button">Link Button</a>
   <button data-variant="text">Text button</button>
   <button data-variant="ghost">Ghost button</button>
   <button data-size="l">Large button</button>
@@ -127,7 +127,7 @@ type Attributes = {
 
 /* todo: add data-* attributes to origami.d.ts? */
 button,
-[data-as="button"] {
+.button {
   --color: var(--color-bg-cta);
   --radius: var(--border-radius-s);
   --borderWidth: 1px;
@@ -151,7 +151,7 @@ button,
 
   &:hover {
     --color: var(--color-bg-cta-hover, var(--color-bg-cta));
-    /* ensure a[data-as="button"] hover color works */
+    /* ensure a.button hover color works */
     color: var(--color-fg-cta);
   }
 

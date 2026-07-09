@@ -35,12 +35,12 @@
 @layer ori-override {
   vstack-i,
   hstack-i,
-  [data-as="hstack-i"],
-  [data-as="vstack-i"],
+  .hstack-i,
+  .vstack-i,
   container-i,
-  [data-as="container-i"],
+  .container-i,
   card-i,
-  [data-as="card-i"],
+  .card-i,
   alert-i {
     &[gap="xs"] {
       gap: var(--spacing-xs);

@@ -37,14 +37,14 @@ type Attributes = {
 **/
 
 vstack-i,
-[data-as="vstack-i"] {
+.vstack-i {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-s);
 }
 
 hstack-i,
-[data-as="hstack-i"] {
+.hstack-i {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -53,8 +53,8 @@ hstack-i,
 
 vstack-i,
 hstack-i,
-[data-as="hstack-i"],
-[data-as="vstack-i"] {
+.hstack-i,
+.vstack-i {
   &[align="start"] {
     align-items: flex-start;
   }

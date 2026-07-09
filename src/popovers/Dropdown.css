@@ -112,7 +112,7 @@ dropdown-i {
   }
 
   > button,
-  > [data-as="button"],
+  > .button,
   > fieldset > label {
     display: flex;
     min-width: 0;

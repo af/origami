@@ -65,7 +65,7 @@
 @layer ori-override {
   :root[data-theme="basic"] {
     button,
-    a[data-as="button"] {
+    a.button {
       font-weight: 600;
     }
 
