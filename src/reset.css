@@ -1,5 +1,6 @@
 /* adapted from https://www.joshwcomeau.com/css/custom-css-reset/ */
 @layer ori-reset {
+
   *,
   *::before,
   *::after {
@@ -12,6 +13,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     html {
+      /* allow animating to 'auto' and other keywords */
       interpolate-size: allow-keywords;
     }
 
@@ -69,5 +71,17 @@
   [disabled] {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  @media screen and (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      animation-delay: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
