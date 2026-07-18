@@ -38,6 +38,68 @@ Small buttons:
 </hstack-i>
 ```
 
+## Variants × states
+
+Every combination of variant (columns) against size and state (rows):
+
+```html-wide
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Default</th>
+      <th>Outline</th>
+      <th>Ghost</th>
+      <th>Text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Small</th>
+      <td><button data-size="s">Button</button></td>
+      <td><button data-size="s" data-variant="outline">Button</button></td>
+      <td><button data-size="s" data-variant="ghost">Button</button></td>
+      <td><button data-size="s" data-variant="text">Button</button></td>
+    </tr>
+    <tr>
+      <th scope="row">Medium</th>
+      <td><button>Button</button></td>
+      <td><button data-variant="outline">Button</button></td>
+      <td><button data-variant="ghost">Button</button></td>
+      <td><button data-variant="text">Button</button></td>
+    </tr>
+    <tr>
+      <th scope="row">Large</th>
+      <td><button data-size="l">Button</button></td>
+      <td><button data-size="l" data-variant="outline">Button</button></td>
+      <td><button data-size="l" data-variant="ghost">Button</button></td>
+      <td><button data-size="l" data-variant="text">Button</button></td>
+    </tr>
+    <tr>
+      <th scope="row">Loading</th>
+      <td><button aria-busy="true" disabled>Button</button></td>
+      <td><button data-variant="outline" aria-busy="true" disabled>Button</button></td>
+      <td><button data-variant="ghost" aria-busy="true" disabled>Button</button></td>
+      <td><button data-variant="text" aria-busy="true" disabled>Button</button></td>
+    </tr>
+    <tr>
+      <th scope="row">Disabled</th>
+      <td><button disabled>Button</button></td>
+      <td><button data-variant="outline" disabled>Button</button></td>
+      <td><button data-variant="ghost" disabled>Button</button></td>
+      <td><button data-variant="text" disabled>Button</button></td>
+    </tr>
+    <tr>
+      <th scope="row">Danger</th>
+      <td><button data-tone="danger">Button</button></td>
+      <td><button data-variant="outline" data-tone="danger">Button</button></td>
+      <td><button data-variant="ghost" data-tone="danger">Button</button></td>
+      <td><button data-variant="text" data-tone="danger">Button</button></td>
+    </tr>
+  </tbody>
+</table>
+```
+
 ## References
 
 * https://css-tricks.com/explaining-the-accessible-benefits-of-using-semantic-html-elements/
@@ -89,7 +151,7 @@ button,
 
   &[data-variant="outline"] {
     color: var(--color);
-    border: var(--borderWidth) solid currentColor;
+    border: var(--borderWidth) solid var(--color);
     background-color: transparent;
 
     &[aria-busy="true"]::before {
@@ -103,14 +165,9 @@ button,
     color: var(--color);
     background-color: transparent;
     border: none;
-  }
 
-  &[data-variant="text"] {
-    font-weight: inherit;
-    padding: 0;
-
-    &:hover {
-      --color: var(--color-fg-link-hover);
+    &[aria-busy="true"]::before {
+      color: var(--color);
     }
   }
 
@@ -120,6 +177,11 @@ button,
 
   &[data-tone="danger"] {
     --color: var(--color-fg-danger);
+
+    &:hover {
+      /* slightly lightened fg-danger */
+      --color: color-mix(in srgb, var(--color-fg-danger), white 15%);
+    }
 
     &[data-variant="ghost"]:hover {
       background-color: var(--color-bg-danger);
@@ -134,6 +196,16 @@ button,
   &[data-size="l"] {
     font-size: var(--font-size-m);
     padding: var(--spacing-s) var(--spacing-xl);
+  }
+
+  /* text variant is link-like: no padding at any size */
+  &[data-variant="text"] {
+    font-weight: inherit;
+    padding: 0;
+
+    &:hover {
+      --color: var(--color-fg-link-hover);
+    }
   }
 
   &:disabled,
