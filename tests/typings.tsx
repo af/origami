@@ -28,7 +28,7 @@ const expectedUsage = (
         </div>
       </tooltip-i>
 
-      <toggletip-i>
+      <toggletip-i role="status">
         <button type="button" popoverTarget="tip-x">
           toggle me
         </button>
@@ -42,6 +42,14 @@ const expectedUsage = (
 
 // @ts-expect-error This is not a real element
 const _invalid1 = <jstack-i>nonsense</jstack-i>
+
+// @ts-expect-error Unused
+const _invalidButton = (
+  // @ts-expect-error Not a valid button attr
+  <button data-tone="bad" type="button">
+    x
+  </button>
+)
 
 // @ts-expect-error This is not a supported property
 const _invalidProperty = <hstack-i asdf>nonsense</hstack-i>

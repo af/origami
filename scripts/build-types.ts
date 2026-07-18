@@ -4,10 +4,17 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { type Entry, extractFileEntries, serializeMixins, serializeType } from './types'
+import { type Entry, elementAttrs, extractFileEntries, keyName, serializeMixins, serializeType } from './types'
 
 const SRC = './src'
 const OUT = './origami.d.ts'
+
+// Native HTML elements (keys without the `-i` custom-element suffix) augment
+// React's existing attribute interface via interface merging, rather than being
+// added to JSX.IntrinsicElements (which would clobber React's built-in typing).
+const NATIVE_INTERFACES: Record<string, string> = {
+  button: 'ButtonHTMLAttributes<T>',
+}
 
 const collectEntries = (): Entry[] => {
   const files = fs
@@ -23,8 +30,22 @@ const wrapEntry = (e: Entry): string => {
   return `      '${e.element}': ${wrapped}`
 }
 
+const nativeAugmentation = (e: Entry): string => {
+  const iface = NATIVE_INTERFACES[e.element]
+  if (!iface) throw new Error(`No React interface mapping for native element '${e.element}'`)
+  const body = elementAttrs(e.rawType)
+    .map((a) => `    ${keyName(a.name)}${a.optional ? '?' : ''}: ${a.type}`)
+    .join('\n')
+  return `declare module 'react' {\n  interface ${iface} {\n${body}\n  }\n}`
+}
+
 const render = (): string => {
-  const entries = collectEntries().map(wrapEntry).join('\n')
+  const all = collectEntries()
+  const entries = all.filter((e) => e.element.endsWith('-i')).map(wrapEntry).join('\n')
+  const native = all
+    .filter((e) => !e.element.endsWith('-i'))
+    .map(nativeAugmentation)
+    .join('\n\n')
   return `// GENERATED FILE — do not edit by hand.
 // Element attribute types live in the \`typescript\` fenced blocks of each component's
 // CSS docblock; run \`bun run build-types\` to regenerate.
@@ -38,7 +59,6 @@ type CustomElementProps<T = {}> = DetailedHTMLProps<HTMLAttributes<HTMLElement> 
 
 // via https://til.jakelazaroff.com/typescript/add-custom-element-to-jsx-intrinsic-elements/
 // TODO: find a framework-agnostic way to register these
-// TODO: button data attribute support here?
 declare module 'react/jsx-runtime' {
   namespace JSX {
     interface IntrinsicElements {
@@ -46,6 +66,8 @@ ${entries}
     }
   }
 }
+
+${native}
 `
 }
 

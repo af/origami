@@ -21,7 +21,6 @@ type CustomElementProps<T = {}> = DetailedHTMLProps<HTMLAttributes<HTMLElement> 
 
 // via https://til.jakelazaroff.com/typescript/add-custom-element-to-jsx-intrinsic-elements/
 // TODO: find a framework-agnostic way to register these
-// TODO: button data attribute support here?
 declare module 'react/jsx-runtime' {
   namespace JSX {
     interface IntrinsicElements {
@@ -40,5 +39,13 @@ declare module 'react/jsx-runtime' {
       'toggletip-i': CustomElementProps<{ role: 'status'; popover: 'auto' | 'manual' }>
       'tooltip-i': CustomElementProps<{ role?: 'tooltip'; popover?: 'hint' }>
     }
+  }
+}
+
+declare module 'react' {
+  interface ButtonHTMLAttributes<T> {
+    'data-variant'?: 'outline' | 'text' | 'ghost' | string
+    'data-tone'?: 'danger'
+    'data-size'?: 's' | 'l'
   }
 }

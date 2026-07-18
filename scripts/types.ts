@@ -33,7 +33,7 @@ export type Mixin = { extends?: string[]; attrs: Attr[] }
 
 // Quote an attribute name for TS output when it isn't a bare identifier
 // (e.g. `aria-label` must become `'aria-label'`).
-const keyName = (name: string): string => (/^[A-Za-z_$][\w$]*$/.test(name) ? name : `'${name}'`)
+export const keyName = (name: string): string => (/^[A-Za-z_$][\w$]*$/.test(name) ? name : `'${name}'`)
 
 const lit = (...values: string[]): Pick<Attr, 'type' | 'values'> => ({
   values,
@@ -171,20 +171,19 @@ const braceBody = (s: string, open: number): { body: string; end: number } => {
   throw new Error('Unbalanced braces in typescript fence')
 }
 
-const parseMembers = (body: string): Entry[] => {
-  const keyRe = /'([a-z][a-z0-9-]*-i)'\s*:/g
-  const keys: { element: string; end: number; start: number }[] = []
-  let m: RegExpExecArray | null = keyRe.exec(body)
-  while (m) {
-    keys.push({ element: m[1], start: m.index, end: keyRe.lastIndex })
-    m = keyRe.exec(body)
-  }
-  return keys.map((k, i) => {
-    const next = keys[i + 1]?.start ?? body.length
-    const rawType = body.slice(k.end, next).trim().replace(/[,;]$/, '').trim()
-    return { element: k.element, rawType }
-  })
-}
+// Element keys are the top-level members of the `type Attributes` map; required
+// attribute keys (e.g. `role: 'alert'`) live one level deeper inside braces, so
+// splitting at the top nesting level keeps them from being mistaken for elements.
+const memberRe = /^(?:'([a-z][a-z0-9-]*)'|([a-z][a-z0-9-]*))\s*:\s*([\s\S]+)$/
+const parseMembers = (body: string): Entry[] =>
+  splitTopLevel(body, ['\n', ',', ';'])
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((member) => {
+      const mm = memberRe.exec(member)
+      if (!mm) throw new Error(`Cannot parse element member: ${member}`)
+      return { element: mm[1] ?? mm[2], rawType: mm[3].trim() }
+    })
 
 // Split a `typescript` fence (one or more `type Attributes = { … }` maps) into
 // per-element entries.
