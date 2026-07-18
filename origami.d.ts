@@ -32,7 +32,7 @@ declare module 'react/jsx-runtime' {
       'container-i': CustomElementProps<BlockAttrs & { direction?: 'column' | 'row' | 'row-reverse' | 'responsive'; variant?: 'narrow' }>
       'vstack-i': CustomElementProps<StackAttrs>
       'hstack-i': CustomElementProps<StackAttrs & { breakpoint?: 's' | 'm' }>
-      'alert-i': CustomElementProps<BlockAttrs & { tone?: 'success' | 'warn' | 'danger' | 'neutral' | 'info' }>
+      'alert-i': CustomElementProps<BlockAttrs & { role: 'alert'; tone?: 'success' | 'warn' | 'danger' | 'neutral' | 'info' }>
       'badge-i': CustomElementProps<{ tone?: 'info' | 'neutral' | 'danger' | 'warn' | 'success'; radius?: 's' | 'm' | 'full' | 'none' }>
       'skeleton-i': CustomElementProps<{ width?: 's' | 'm' | 'l' | 'xl'; radius?: 's' | 'm' | 'full' | 'none' }>
       'dropdown-i': CustomElementProps<{ align?: 'left' | 'right' }>

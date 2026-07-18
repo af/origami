@@ -100,6 +100,16 @@ Every combination of variant (columns) against size and state (rows):
 </table>
 ```
 
+```typescript
+type Attributes = {
+  button: {
+    'data-variant'?: 'outline' | 'text' | 'ghost' | string
+    'data-tone'?: 'danger'
+    'data-size'?: 's' | 'l'
+  }
+}
+```
+
 ## References
 
 * https://css-tricks.com/explaining-the-accessible-benefits-of-using-semantic-html-elements/
