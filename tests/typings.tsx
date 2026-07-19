@@ -18,7 +18,7 @@ const expectedUsage = (
         </label>
       </switch-i>
 
-      <tooltip-i>
+      <tooltip-i role="tooltip">
         {/* @ts-expect-error no interestFor in types yet */}
         <button type="button" interestFor="tooltip">
           hi
@@ -28,13 +28,11 @@ const expectedUsage = (
         </div>
       </tooltip-i>
 
-      <toggletip-i role="status">
-        <button type="button" popoverTarget="tip-x">
-          toggle me
-        </button>
-        <div role="status" id="tip-x" popover="hint">
-          This is the toggletip content
-        </div>
+      <button type="button" popoverTarget="tip-x">
+        toggle me
+      </button>
+      <toggletip-i role="status" popover="auto" id="tip-x">
+        This is the toggletip content
       </toggletip-i>
     </card-i>
   </div>

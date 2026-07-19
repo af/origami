@@ -40,7 +40,7 @@ Hoverable tooltips. Uses [Interest Invokers](https://caniuse.com/wf-interest-inv
 ```typescript
 type Attributes = {
   'tooltip-i': {
-    role?: 'tooltip'
+    role: 'tooltip'
     popover?: 'hint'
   }
 }

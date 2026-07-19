@@ -24,10 +24,15 @@ const collectEntries = (): Entry[] => {
   return files.flatMap((f) => extractFileEntries(path.join(SRC, f)))
 }
 
+// Single-line JSDoc so LSP hover shows the component summary. `indent` aligns
+// the comment with the declaration it documents; returns '' when undocumented.
+const jsdoc = (description: string | undefined, indent: string): string =>
+  description ? `${indent}/** ${description.replace(/\*\//g, '*\\/')} */\n` : ''
+
 const wrapEntry = (e: Entry): string => {
   const inner = serializeType(e.rawType)
   const wrapped = inner ? `CustomElementProps<${inner}>` : 'CustomElementProps'
-  return `      '${e.element}': ${wrapped}`
+  return `${jsdoc(e.description, '      ')}      '${e.element}': ${wrapped}`
 }
 
 const nativeAugmentation = (e: Entry): string => {
@@ -36,7 +41,7 @@ const nativeAugmentation = (e: Entry): string => {
   const body = elementAttrs(e.rawType)
     .map((a) => `    ${keyName(a.name)}${a.optional ? '?' : ''}: ${a.type}`)
     .join('\n')
-  return `declare module 'react' {\n  interface ${iface} {\n${body}\n  }\n}`
+  return `declare module 'react' {\n${jsdoc(e.description, '  ')}  interface ${iface} {\n${body}\n  }\n}`
 }
 
 const render = (): string => {

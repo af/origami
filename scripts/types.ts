@@ -156,7 +156,8 @@ export const elementAttrs = (raw: string): Attr[] => {
 // rawType is the element's attribute type as authored in the `type Attributes`
 // map (e.g. `BlockAttrs & { … }`, `{}` for no attributes), i.e. what the docs
 // table and serializers consume; build-types wraps it in `CustomElementProps`.
-export type Entry = { element: string; rawType: string }
+// description is the component's frontmatter summary, emitted as a JSDoc hover.
+export type Entry = { element: string; rawType: string; description?: string }
 
 // Body of the balanced `{ ... }` starting at the brace index `open`.
 const braceBody = (s: string, open: number): { body: string; end: number } => {
@@ -202,14 +203,18 @@ export const parseEntries = (fenceBody: string): Entry[] => {
 
 const docblockRe = /\/\*\*([\s\S]*?)\*\*\//
 const fenceRe = /```typescript\s*\n([\s\S]*?)```/g
+// The `description:`/`title:` line from the docblock's leading frontmatter.
+const descRe = /^\s*description:\s*(.+?)\s*$/m
+const titleRe = /^\s*title:\s*(.+?)\s*$/m
 
 // Extract all element entries from a CSS file's leading docblock.
 export const extractFileEntries = (cssPath: string): Entry[] => {
   const doc = docblockRe.exec(fs.readFileSync(cssPath, 'utf-8'))?.[1] ?? ''
+  const description = descRe.exec(doc)?.[1] ?? titleRe.exec(doc)?.[1]
   const entries: Entry[] = []
   let m: RegExpExecArray | null = fenceRe.exec(doc)
   while (m) {
-    entries.push(...parseEntries(m[1]))
+    entries.push(...parseEntries(m[1]).map((e) => ({ ...e, description })))
     m = fenceRe.exec(doc)
   }
   return entries

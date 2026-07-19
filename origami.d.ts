@@ -24,25 +24,40 @@ type CustomElementProps<T = {}> = DetailedHTMLProps<HTMLAttributes<HTMLElement> 
 declare module 'react/jsx-runtime' {
   namespace JSX {
     interface IntrinsicElements {
+      /** Integrated layout and label styles for inputs, selects, and textareas */
       'labelledfield-i': CustomElementProps
+      /** Animated, themable toggle switch, using a checkbox for state */
       'switch-i': CustomElementProps
+      /** It's a card. You know the drill. */
       'card-i': CustomElementProps<BlockAttrs>
+      /** It's a card. You know the drill. */
       'card-cover-i': CustomElementProps
+      /** Responsive, centered container with a default width of content */
       'container-i': CustomElementProps<BlockAttrs & { direction?: 'column' | 'row' | 'row-reverse' | 'responsive'; variant?: 'narrow' }>
+      /** Flexible layout primitives, everywhere you need a flex container */
       'vstack-i': CustomElementProps<StackAttrs>
+      /** Flexible layout primitives, everywhere you need a flex container */
       'hstack-i': CustomElementProps<StackAttrs & { breakpoint?: 's' | 'm' }>
+      /** Status banners, with various supported tone variants */
       'alert-i': CustomElementProps<BlockAttrs & { role: 'alert'; tone?: 'success' | 'warn' | 'danger' | 'neutral' | 'info' }>
+      /** Small pill-like elements for counts and statuses */
       'badge-i': CustomElementProps<{ tone?: 'info' | 'neutral' | 'danger' | 'warn' | 'success'; radius?: 's' | 'm' | 'full' | 'none' }>
+      /** Generic shimmering boxes for loading states */
       'skeleton-i': CustomElementProps<{ width?: 's' | 'm' | 'l' | 'xl'; radius?: 's' | 'm' | 'full' | 'none' }>
+      /** Anchor-positioned popovers for buttons and menus */
       'dropdown-i': CustomElementProps<{ align?: 'left' | 'right' }>
+      /** Dismissable popup notifications, using popovers */
       'toastgroup-i': CustomElementProps<{ role: 'region'; 'aria-label': string; 'aria-live': 'polite' }>
+      /** Tooltips that show when clicking a button */
       'toggletip-i': CustomElementProps<{ role: 'status'; popover: 'auto' | 'manual' }>
-      'tooltip-i': CustomElementProps<{ role?: 'tooltip'; popover?: 'hint' }>
+      /** Hover-invoked popover content, using Interest Invokers. Experimental! */
+      'tooltip-i': CustomElementProps<{ role: 'tooltip'; popover?: 'hint' }>
     }
   }
 }
 
 declare module 'react' {
+  /** Themable button styles, with multiple variants and supported states */
   interface ButtonHTMLAttributes<T> {
     'data-variant'?: 'outline' | 'text' | 'ghost' | string
     'data-tone'?: 'danger'
