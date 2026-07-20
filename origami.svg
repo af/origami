@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="701" height="779" viewBox="-389 367 701 779">
+<title>origami-css</title>
 <style>
   svg  { color-scheme: light dark; }
   path { stroke: light-dark(#000, #fff); }
