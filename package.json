@@ -13,7 +13,7 @@
     "dev": "bun run --hot ./site/server.ts",
     "lint": "biome lint --write",
     "start": "bun dev",
-    "ts": "tsgo --noEmit",
+    "ts": "tsc --noEmit",
     "test": "bun scripts/build-types.ts --check && biome lint && bun tsc && bun test"
   },
   "sideEffects": false,

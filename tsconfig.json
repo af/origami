@@ -4,6 +4,7 @@
     "outDir": "./dist",
     "module": "preserve",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "types": ["bun"],
     "importHelpers": true,
     "strict": true,
     "allowJs": true,
@@ -19,5 +20,5 @@
     "target": "es2022",
     "noEmit": true
   },
-  "include": ["origami.d.ts", "src", "tests"]
+  "include": ["origami.d.ts", "src", "tests", "scripts"]
 }
