@@ -19,41 +19,41 @@ if (theme) {
 }
 themeSelect?.addEventListener('change', (evt) => setTheme(evt.target.value))
 
-const navigateTo = (hash) => {
+// Navigation/routing (TODO: replace hashes with real urls if committing to running a server)
+const shouldNotIntercept = (navEvt) => {
+  return (
+    !navEvt.canIntercept ||
+    // navEvt.hashChange ||
+    navEvt.downloadRequest ||
+    navEvt.formData
+  )
+}
+
+const navTo = (fullHash) => {
+  const hash = fullHash.replace('#', '')
   const page = docs.find((p) => p.name === hash)
-  if (page) {
-    location.hash = hash
-    main.innerHTML = page.markdown
-  }
+  if (page) main.innerHTML = page.markdown
 
   // Update nav links
   nav.querySelectorAll('a[aria-current]').forEach((a) => a.removeAttribute('aria-current'))
   document.querySelector(`a[href="#${hash}"]`)?.setAttribute('aria-current', 'page')
 }
-nav.addEventListener('click', (e) => {
-  const link = e.target
-  if (link.tagName !== 'A') return
-  e.preventDefault()
 
-  const linkHash = new URL(link.href).hash?.replace('#', '')
-  navigateTo(linkHash)
+navigation.addEventListener('navigate', (navigateEvent) => {
+  if (shouldNotIntercept(navigateEvent)) return
+
+  const url = new URL(navigateEvent.destination.url)
+  navTo(url.hash)
 })
 
-window.addEventListener('hashchange', () => {
-  const hash = location.hash.replace('#', '')
-  navigateTo(hash)
-})
-window.addEventListener('load', () => {
-  const hash = location.hash.replace('#', '')
-  navigateTo(hash)
-})
+window.addEventListener('load', () => navTo(location.hash))
 
 // Dev: when the file watcher regenerates data.js, swap in the new docs and
 // re-render the current page without a full reload. See buildMarkdown.ts.
 if (import.meta.hot) {
   import.meta.hot.accept('./data.js', (mod) => {
     docs = mod.DOCS
-    navigateTo(location.hash.replace('#', ''))
+    location.assign(location)
   })
 }
 
