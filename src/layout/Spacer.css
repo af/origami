@@ -1,0 +1,34 @@
+/**
+---
+title: Spacer
+description: Flex spacing element, for help with layouts
+---
+
+Tiny helper element to fill flexible space in a layout. It often happens that a flex container has multiple children, and should fit its available size, but none of its children is a natural fit to fill that space. That's where `spacer-i` comes in.
+
+Without spacer:
+
+```html
+<hstack-i>
+  <h2>Title</h2>
+  <badge-i>New</badge-i>
+  <button data-variant="outline" type="button">+</button>
+</hstack-i>
+```
+
+With spacer:
+
+```html
+<hstack-i>
+  <h2>Title</h2>
+  <badge-i>New</badge-i>
+  <spacer-i></spacer-i>
+  <button data-variant="outline" type="button">+</button>
+</hstack-i>
+```
+**/
+
+spacer-i,
+.spacer-i {
+  flex: 1;
+}

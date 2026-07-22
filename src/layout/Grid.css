@@ -1,0 +1,64 @@
+/**
+---
+title: Grid
+description: Simple responsive CSS grid container
+---
+
+## ⚠ Experimental: limited browser support. Relies on [CSS3 attr](https://caniuse.com/css3-attr)
+
+```html
+<grid-i columns="30px 1fr 1fr" gap="s">
+  <card-i pad="s">A</card-i>
+  <card-i pad="s">B</card-i>
+  <card-i pad="s">C</card-i>
+</grid-i>
+```
+
+The `rows` attribute follows the same formula for explicit row tracks:
+
+```html
+<grid-i columns="1fr 1fr" rows="40px 80px" gap="s">
+  <card-i pad="s">A</card-i>
+  <card-i pad="s">B</card-i>
+  <card-i pad="s">C</card-i>
+  <card-i pad="s">D</card-i>
+</grid-i>
+```
+
+Auto-wrapping example:
+
+```html
+<grid-i gap="s" columns="repeat(auto-fit, minmax(80px, 1fr))">
+  <card-i pad="s">A</card-i>
+  <card-i pad="s">B</card-i>
+  <card-i pad="s">C</card-i>
+  <card-i pad="s">D</card-i>
+</grid-i>
+```
+
+```typescript
+type Attributes = {
+  'grid-i': BlockAttrs & {
+    columns: string
+    rows: string
+  }
+}
+```
+**/
+
+grid-i,
+.grid-i {
+  display: grid;
+  /* Typed attr() reads the `columns` attribute as a track list. `type(*)` (the
+     universal syntax) is required — `type()` only allows @property-style
+     primitives, not complex grammars like <track-list>.
+     Chromium 133+ only; falls back to a single column elsewhere. */
+  grid-template-columns: attr(columns type(*), 1fr);
+  /* Same formula for explicit rows; defaults to `auto` (implicit sizing). */
+  grid-template-rows: attr(rows type(*), auto);
+
+  /* TODO: use container query instead, make configurable */
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+}

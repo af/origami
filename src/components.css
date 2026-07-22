@@ -1,6 +1,8 @@
-@import url("./layout/Stack.css") layer(ori-components);
-@import url("./layout/Container.css") layer(ori-components);
 @import url("./layout/Card.css") layer(ori-components);
+@import url("./layout/Container.css") layer(ori-components);
+@import url("./layout/Grid.css") layer(ori-components);
+@import url("./layout/Spacer.css") layer(ori-components);
+@import url("./layout/Stack.css") layer(ori-components);
 
 @import url("./forms/Button.css") layer(ori-components);
 @import url("./forms/ButtonGroup.css") layer(ori-components);
@@ -19,4 +21,5 @@
 @import url("./facets.css");
 
 /* bun bundler doesn't like having this line above the @imports */
-@layer ori-components {}
+@layer ori-components {
+}
