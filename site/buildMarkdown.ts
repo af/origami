@@ -81,13 +81,53 @@ const getDocPageFromPath = (filepath: string) => {
     }</header>`
     : ''
 
-  return [
-    {
-      filepath,
-      name: filepath.replace(/\.(css|md)$/, ''),
-      markdown: `${header}<article>${marked(body) + attrsSection}</article>`,
-    },
-  ]
+  const fullMarkdown = `${header}<article>${marked(body) + attrsSection}</article>`
+  const name = filepath.replace(/\.(css|md)$/, '')
+  // Nav label: the page's own <h1> (css docs embed it in their comment; md docs
+  // get it from frontmatter above). Falls back to the file's base name.
+  const title = /<h1>(.*?)<\/h1>/s.exec(fullMarkdown)?.[1] ?? name.split('/').pop()!
+
+  return [{ filepath, name, title, markdown: fullMarkdown }]
+}
+
+type DocPage = ReturnType<typeof getDocPageFromPath>[number]
+
+// Sidebar groups, keyed by the top-level src/ directory. Order here is the
+// display order; any dir not listed is appended with a title-cased fallback.
+// Adding a component to an existing dir needs no changes here.
+const NAV_GROUPS: Record<string, string> = {
+  docs: 'Variables',
+  layout: 'Layout',
+  forms: 'Forms',
+  popovers: 'Popovers',
+  misc: 'Misc',
+}
+
+// Build the sidebar markup (grouped by src/ dir) and splice it into index.html
+// between the nav:start / nav:end markers. Idempotent, so it's safe to run on
+// every dev rebuild and in the production build.
+const injectNav = (pages: DocPage[]) => {
+  const byDir = Map.groupBy(pages, (p) => p.name.split('/')[0])
+  const dirs = [...new Set([...Object.keys(NAV_GROUPS), ...byDir.keys()])].filter((d) => byDir.has(d))
+  const titleCase = (s: string) => s[0].toUpperCase() + s.slice(1)
+
+  const nav = dirs
+    .map((dir) => {
+      const links = byDir
+        .get(dir)!
+        .map((p) => `          <a href="#${p.name}">${p.title}</a>`)
+        .join('\n')
+      return `        <div>\n          <h2>${NAV_GROUPS[dir] ?? titleCase(dir)}</h2>\n${links}\n        </div>`
+    })
+    .join('\n\n')
+
+  const path = './site/index.html'
+  const html = fs.readFileSync(path, 'utf-8')
+  const next = html.replace(
+    /( *<!-- nav:start[^]*?-->\n)[^]*?( *<!-- nav:end -->)/,
+    `$1${nav}\n$2`,
+  )
+  if (next !== html) fs.writeFileSync(path, next)
 }
 
 export const writeDocPages = () => {
@@ -95,9 +135,14 @@ export const writeDocPages = () => {
     .readdirSync('./src', { encoding: 'utf8', recursive: true })
     .filter((fname) => fname.endsWith('.css') || fname.endsWith('.md'))
     .flatMap(getDocPageFromPath)
+    // Sort for deterministic output (and a stable, alphabetical sidebar order)
+    .sort((a, b) => a.name.localeCompare(b.name))
 
   // Write data as an ES module so site.js can import it and hot-accept updates
   fs.writeFileSync('./site/data.js', `export const DOCS = ${JSON.stringify(docPages, null, 2)}`)
+
+  // Bake the sidebar nav straight into the served HTML (no client-side JS)
+  injectNav(docPages)
 }
 
 // Run directly (e.g. `bun run build-docs`) to regenerate data.js once. The
