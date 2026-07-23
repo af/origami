@@ -1,10 +1,10 @@
 /**
 ---
-title: HStack & VStack
-description: Flexible layout primitives, everywhere you need a flex container
+title: Stacks
+description: Flexible layout primitives, for every place you need a flex container
 ---
 
-Inspired by SwiftUI's `HStack` and `VStack` views, these components give you a simple way to create simple horizontal or vertical flex containers without adding any CSS.
+Inspired by SwiftUI's `HStack` and `VStack` views, `<hstack-i>` and `<vstack-i>` give you simple declarative horizontal or vertical flex containers, without manually writing any CSS.
 
 ```html
 <hstack-i>
