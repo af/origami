@@ -30,7 +30,8 @@ const shouldNotIntercept = (navEvt) => {
 }
 
 const navTo = (fullHash) => {
-  const hash = fullHash.replace('#', '')
+  // Root route (no hash) renders the Home page
+  const hash = fullHash.replace('#', '') || 'Index'
   const page = docs.find((p) => p.name === hash)
   if (page) main.innerHTML = page.markdown
 

@@ -107,7 +107,9 @@ const NAV_GROUPS: Record<string, string> = {
 // between the nav:start / nav:end markers. Idempotent, so it's safe to run on
 // every dev rebuild and in the production build.
 const injectNav = (pages: DocPage[]) => {
-  const byDir = Map.groupBy(pages, (p) => p.name.split('/')[0])
+  // Root-level pages (e.g. Index.md, the landing page) aren't sidebar entries
+  const navPages = pages.filter((p) => p.name.includes('/'))
+  const byDir = Map.groupBy(navPages, (p) => p.name.split('/')[0])
   const dirs = [...new Set([...Object.keys(NAV_GROUPS), ...byDir.keys()])].filter((d) => byDir.has(d))
   const titleCase = (s: string) => s[0].toUpperCase() + s.slice(1)
 
