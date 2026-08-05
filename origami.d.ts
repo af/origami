@@ -34,9 +34,11 @@ declare module 'react/jsx-runtime' {
       'card-cover-i': CustomElementProps
       /** Responsive, centered container with a default width of content */
       'container-i': CustomElementProps<BlockAttrs & { direction?: 'column' | 'row' | 'row-reverse' | 'responsive'; variant?: 'narrow' }>
-      /** Flexible layout primitives, everywhere you need a flex container */
+      /** Simple responsive CSS grid container */
+      'grid-i': CustomElementProps<BlockAttrs & { columns: string; rows: string }>
+      /** Flexible layout primitives, for every place you need a flex container */
       'vstack-i': CustomElementProps<StackAttrs>
-      /** Flexible layout primitives, everywhere you need a flex container */
+      /** Flexible layout primitives, for every place you need a flex container */
       'hstack-i': CustomElementProps<StackAttrs & { breakpoint?: 's' | 'm' }>
       /** Status banners, with various supported tone variants */
       'alert-i': CustomElementProps<BlockAttrs & { role: 'alert'; tone?: 'success' | 'warn' | 'danger' | 'neutral' | 'info' }>
