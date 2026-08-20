@@ -35,7 +35,7 @@ declare module 'react/jsx-runtime' {
       /** Responsive, centered container with a default width of content */
       'container-i': CustomElementProps<BlockAttrs & { direction?: 'column' | 'row' | 'row-reverse' | 'responsive'; variant?: 'narrow' }>
       /** Simple responsive CSS grid container */
-      'grid-i': CustomElementProps<BlockAttrs & { columns: string; rows: string }>
+      'grid-i': CustomElementProps<BlockAttrs & { columns: string; rows?: string }>
       /** Flexible layout primitives, for every place you need a flex container */
       'vstack-i': CustomElementProps<StackAttrs>
       /** Flexible layout primitives, for every place you need a flex container */

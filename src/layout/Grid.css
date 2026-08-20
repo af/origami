@@ -40,7 +40,7 @@ Auto-wrapping example:
 type Attributes = {
   'grid-i': BlockAttrs & {
     columns: string
-    rows: string
+    rows?: string
   }
 }
 ```
