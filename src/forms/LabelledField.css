@@ -54,7 +54,7 @@ labelledfield-i {
   display: inline-flex;
   flex: 1;
   flex-direction: column;
-  align-self: flex-start;
+  align-self: stretch;
   transition: border-color 0.2s;
 
   &:not(:has(:user-invalid)):hover {

@@ -50,7 +50,8 @@ type Attributes = {
 </alert-i>
 ```
 **/
-alert-i {
+alert-i,
+.alert-i {
   --color: var(--color-fg-info);
   --bg: var(--color-bg-info);
   --padding: var(--spacing-m);

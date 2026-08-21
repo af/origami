@@ -34,7 +34,7 @@ Add supplemental information above your headings. Designed to help you use the c
 
 **/
 
-hgroup > p.eyebrow-i {
+hgroup > .eyebrow-i {
   font-family: var(--font-family-micro, --font-family-text);
   font-weight: 600;
   font-size: var(--font-size-xs);

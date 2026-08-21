@@ -30,7 +30,8 @@ type Attributes = {
 }
 ```
 **/
-badge-i {
+badge-i,
+.badge-i {
   align-items: center;
   background: var(--color-bg-info);
   border-radius: var(--border-radius-m);
